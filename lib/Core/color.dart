@@ -10,3 +10,5 @@ const Color white = Color(0xffFfffff);
 const Color orange = Color(0xffF28944);
 const Color lighrRed = Color(0xffFF8182);
 const Color red = Color(0xffFF5152);
+const Color lightGrey = Color(0xffC9CED8);
+const Color darkGrey = Color(0xffB0B0B0);
