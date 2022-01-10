@@ -1,5 +1,8 @@
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/data/nav_button_data.dart';
+import 'package:exercise_app/pages/home/home_page.dart';
+import 'package:exercise_app/pages/profile/profile_page.dart';
+import 'package:exercise_app/pages/report/report_page.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -81,10 +84,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 }
 
 List<Widget> bottomMenu = [
-  Container(color: orange),
-  Container(color: blue),
-  Container(color: red),
-  // const HomePage(),
-  // const ReportsPage(),
-  // const ProfilePage(),
+  const HomePage(),
+  const ReportsPage(),
+  const ProfilePage(),
 ];
