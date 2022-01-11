@@ -42,10 +42,10 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/gif/
-    # - assets/gif/Advanced/
-    # - assets/gif/Beginner/
-    # - assets/gif/Intermediate/
-    # - assets/gif/LICD/
+    - assets/gif/Advanced/
+    - assets/gif/Beginner/
+    - assets/gif/Intermediate/
+    - assets/gif/Licw/
 
 
   fonts:

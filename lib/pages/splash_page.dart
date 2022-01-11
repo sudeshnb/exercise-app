@@ -28,12 +28,18 @@ class _SplashPageState extends State<SplashPage> {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
-            color: blue,
+            // color: blue,
             borderRadius: BorderRadius.circular(100.0),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[blue, darkBlue],
+            ),
             boxShadow: const [
               BoxShadow(
                 color: blueShadow,
-                offset: Offset(0, 5),
+                offset: Offset(0, 10),
+                spreadRadius: 2,
                 blurRadius: 20.0,
               )
             ],

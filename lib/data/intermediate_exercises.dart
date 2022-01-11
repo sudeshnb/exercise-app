@@ -4,7 +4,7 @@ List<Exercise> intermediateExercises = [
   Exercise(
     id: 0,
     name: 'Chest Stretch',
-    imagePath: 'assets/gif/Chest_Stretch.gif',
+    imagePath: 'assets/gif/Intermediate/Chest_Stretch.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -16,7 +16,7 @@ List<Exercise> intermediateExercises = [
   Exercise(
     id: 1,
     name: 'Shifting Weight',
-    imagePath: 'assets/gif/Shifting_Weight.gif',
+    imagePath: 'assets/gif/Intermediate/Shifting_Weight.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -29,7 +29,7 @@ List<Exercise> intermediateExercises = [
     id: 2,
     name: 'One Leg Balance',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/One_Leg_Balance.gif',
+    imagePath: 'assets/gif/Intermediate/One_Leg_Balance.gif',
     time: '60',
     steps: [
       'When standing, put your hands on your hips, keep your feet hip-width apart.',
@@ -41,7 +41,7 @@ List<Exercise> intermediateExercises = [
     id: 3,
     name: 'Hip Extension',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Hip_Extension.gif',
+    imagePath: 'assets/gif/Intermediate/Hip_Extension.gif',
     time: '60',
     steps: [
       'Stand upright with the legs straight and the feet shoulder-width apart. Extend both arms out in front and hold on to a chair for support.',
@@ -53,7 +53,7 @@ List<Exercise> intermediateExercises = [
     id: 4,
     name: 'Heel to Buttock Exercise',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Heel_to_Buttock-Exercise.gif',
+    imagePath: 'assets/gif/Intermediate/Heel_to_Buttock-Exercise.gif',
     time: '60',
     steps: [
       'Stand upright with the legs straight and the feet shoulder-width apart. ',
@@ -65,7 +65,7 @@ List<Exercise> intermediateExercises = [
     id: 5,
     name: 'Hip Flexion',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Hip_Flexion.gif',
+    imagePath: 'assets/gif/Intermediate/Hip_Flexion.gif',
     time: '60',
     steps: [
       'Stand upright. Extend one arm out to the side and hold on to a wall for support.',
@@ -77,7 +77,7 @@ List<Exercise> intermediateExercises = [
     id: 6,
     name: 'Chair Stand Exercise',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Chair_Stand_Exercise.gif',
+    imagePath: 'assets/gif/Intermediate/Chair_Stand_Exercise.gif',
     time: '60',
     steps: [
       'Sitting on the front part of the seat, bend the knees and place the feet flat on the floor. ',
@@ -89,7 +89,7 @@ List<Exercise> intermediateExercises = [
     id: 7,
     name: 'Lateral Shuffles',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Lateral_Shuffles.gif',
+    imagePath: 'assets/gif/Intermediate/Lateral_Shuffles.gif',
     time: '60',
     steps: [
       'Start on one end of a room and squat slightly.',
@@ -101,7 +101,7 @@ List<Exercise> intermediateExercises = [
     id: 8,
     name: 'Jogging in Place',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Jogging_in_Place.gif',
+    imagePath: 'assets/gif/Intermediate/Jogging_in_Place.gif',
     time: '60',
     steps: [
       'bounce lightly from one foot to the other. At the same time, swing the arms from side to side.',
@@ -111,7 +111,7 @@ List<Exercise> intermediateExercises = [
     id: 9,
     name: 'Wall Bicep Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Wall_Bicep_Stretch.gif',
+    imagePath: 'assets/gif/Intermediate/Wall_Bicep_Stretch.gif',
     time: '60',
     steps: [
       'Press your left palm against a wall or sturdy object. Slowly turn your body away from the wall.',
@@ -123,7 +123,7 @@ List<Exercise> intermediateExercises = [
     id: 10,
     name: 'Wall Pushups',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Wall_Pushups.gif',
+    imagePath: 'assets/gif/Intermediate/Wall_Pushups.gif',
     time: '60',
     steps: [
       'Stand about 3 feet away from a wall, facing the wall, with your feet shoulder-width apart.',
@@ -135,7 +135,7 @@ List<Exercise> intermediateExercises = [
     id: 11,
     name: 'Wall Squat',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Wall_Squat.gif',
+    imagePath: 'assets/gif/Intermediate/Wall_Squat.gif',
     time: '60',
     steps: [
       'Stand with the head, shoulders, back, and hips flat against a wall. Step both feet out about 24 inches away from the wall.',

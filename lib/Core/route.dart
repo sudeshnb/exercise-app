@@ -1,5 +1,6 @@
 import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
+import 'package:exercise_app/pages/home/view_all_exercise.dart';
 import 'package:exercise_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +14,13 @@ class RouteGenerator {
       case '/HomePage':
         return createRoute(child: const HomePage());
 
-      // case '/ViewAllExercisePage':
-      //   Levels level = arguments as Levels;
-      //   return createRoute(
-      //     child: ViewAllExercise(
-      //       level: level,
-      //     ),
-      //   );
+      case '/ViewAllExercisePage':
+        Levels level = arguments as Levels;
+        return createRoute(
+          child: ViewAllExercise(
+            level: level,
+          ),
+        );
 
       default:
         // If there is no such named route in the switch statement

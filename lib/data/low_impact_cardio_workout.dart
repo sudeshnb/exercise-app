@@ -4,7 +4,7 @@ List<Exercise> lowImpactCardioWorkout = [
   Exercise(
     id: 0,
     name: 'Shoulder Stretch',
-    imagePath: 'assets/gif/Shoulder_Stretch.gif',
+    imagePath: 'assets/gif/Licw/Shoulder_Stretch.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -16,7 +16,7 @@ List<Exercise> lowImpactCardioWorkout = [
   Exercise(
     id: 1,
     name: 'Neck and Chest Stretch',
-    imagePath: 'assets/gif/Neck_and_Chest_Stretch.gif',
+    imagePath: 'assets/gif/Licw/Neck_and_Chest_Stretch.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -29,7 +29,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 2,
     name: 'Seated Cat Cow',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Seated_Cat_Cow.gif',
+    imagePath: 'assets/gif/Licw/Seated_Cat_Cow.gif',
     time: '60',
     steps: [
       'Seat with feet planted firmly on the floor, place your hands on your knees, fingers pointing in toward each other.',
@@ -41,7 +41,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 3,
     name: 'Shoulder Circles',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Shoulder_Circles.gif',
+    imagePath: 'assets/gif/Licw/Shoulder_Circles.gif',
     time: '60',
     steps: [
       'Sitting up straight and your arms hanging by your sides.  Both hands put on your shoulder.',
@@ -53,7 +53,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 4,
     name: 'Shoulder Swing Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Shoulder_Swing_Stretch.gif',
+    imagePath: 'assets/gif/Licw/Shoulder_Swing_Stretch.gif',
     time: '60',
     steps: [
       'Stand with shoulder-width apart. Bring left arm up to just below your shoulder.',
@@ -65,7 +65,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 5,
     name: 'Trunk Rotation',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Trunk_Rotation.gif',
+    imagePath: 'assets/gif/Licw/Trunk_Rotation.gif',
     time: '60',
     steps: [
       'Stand with a heavy object at chest height with elbows to the sides.',
@@ -76,7 +76,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 6,
     name: 'Standing Heel Lifts',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Standing_Heel_Lifts.gif',
+    imagePath: 'assets/gif/Licw/Standing_Heel_Lifts.gif',
     time: '60',
     steps: [
       'Stand with your feet about shoulder-width apart. Lift your heels off the floor.',
@@ -87,7 +87,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 7,
     name: 'Hip Abduction',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Hip_Abduction.gif',
+    imagePath: 'assets/gif/Licw/Hip_Abduction.gif',
     time: '60',
     steps: [
       'Stand upright. Put your hands together. Starting with the feet together.',
@@ -99,7 +99,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 8,
     name: 'Standing Quadriceps Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Standing_Quadriceps_Stretch.gif',
+    imagePath: 'assets/gif/Licw/Standing_Quadriceps_Stretch.gif',
     time: '60',
     steps: [
       'From a standing position, bend your right knee to bring your heel toward your buttock. Hold your ankle with one hand.',
@@ -111,7 +111,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 9,
     name: 'Speed Skaters',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Speed_Skaters.gif',
+    imagePath: 'assets/gif/Licw/Speed_Skaters.gif',
     time: '60',
     steps: [
       'Start in a curtsy lunge, both knees bent and your right leg diagonally behind you. Bend your right arm and straighten your left arm.',
@@ -123,7 +123,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 10,
     name: 'Knee Driver',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Knee_Driver.gif',
+    imagePath: 'assets/gif/Licw/Knee_Driver.gif',
     time: '60',
     steps: [
       'Begin with your weight on your left foot and your hands together in front of you for balance.',
@@ -135,7 +135,7 @@ List<Exercise> lowImpactCardioWorkout = [
     id: 11,
     name: 'Screamer Lunges',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Screamer_Lunges.gif',
+    imagePath: 'assets/gif/Licw/Screamer_Lunges.gif',
     time: '60',
     steps: [
       'Stand with the feet hip-width apart. Extend the right leg back to a lunge position.',

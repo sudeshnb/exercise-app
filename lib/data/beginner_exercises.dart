@@ -4,7 +4,7 @@ List<Exercise> beginnerExercises = [
   Exercise(
     id: 0,
     name: 'Neck Stretch',
-    imagePath: 'assets/gif/Neck_Stretch.gif',
+    imagePath: 'assets/gif/Beginner/Neck_Stretch.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -16,7 +16,7 @@ List<Exercise> beginnerExercises = [
   Exercise(
     id: 1,
     name: 'Head Tilts',
-    imagePath: 'assets/gif/Head_Tilts.gif',
+    imagePath: 'assets/gif/Beginner/Head_Tilts.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -29,7 +29,7 @@ List<Exercise> beginnerExercises = [
     id: 2,
     name: 'Upper Trap Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Upper_Trap_Stretch.gif',
+    imagePath: 'assets/gif/Beginner/Upper_Trap_Stretch.gif',
     time: '60',
     steps: [
       'Gently pull your head toward each shoulder until a light stretch is felt.',
@@ -41,7 +41,7 @@ List<Exercise> beginnerExercises = [
     id: 3,
     name: 'Raised Hands Pose',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Raised_Hands_Pose.gif',
+    imagePath: 'assets/gif/Beginner/Raised_Hands_Pose.gif',
     time: '60',
     steps: [
       'On an inhalation, raise your arms toward the ceiling.',
@@ -53,7 +53,7 @@ List<Exercise> beginnerExercises = [
     id: 4,
     name: 'Shoulder Shrug',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Shoulder_Shrug.gif',
+    imagePath: 'assets/gif/Beginner/Shoulder_Shrug.gif',
     time: '60',
     steps: [
       'Raise both shoulders at once up toward the ears.',
@@ -64,7 +64,7 @@ List<Exercise> beginnerExercises = [
     id: 5,
     name: 'Reach Back',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Reach_Back.gif',
+    imagePath: 'assets/gif/Beginner/Reach_Back.gif',
     time: '60',
     steps: [
       'Sit with spine straight, feet planted firmly on the ground. Reach behind you and interlace your hands. ',
@@ -76,7 +76,7 @@ List<Exercise> beginnerExercises = [
     id: 6,
     name: 'Upper Body Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Upper_Body_Stretch.gif',
+    imagePath: 'assets/gif/Beginner/Upper_Body_Stretch.gif',
     time: '60',
     steps: [
       '1Clasp hands together above the head with palms facing outward.',
@@ -88,7 +88,7 @@ List<Exercise> beginnerExercises = [
     id: 7,
     name: 'Triceps Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Triceps_Stretch.gif',
+    imagePath: 'assets/gif/Beginner/Triceps_Stretch.gif',
     time: '60',
     steps: [
       'Raise your arm and bend it so that your hand reaches toward the opposite side.',
@@ -100,7 +100,7 @@ List<Exercise> beginnerExercises = [
     id: 8,
     name: 'Forward Stretch',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Forward_Stretch.gif',
+    imagePath: 'assets/gif/Beginner/Forward_Stretch.gif',
     time: '60',
     steps: [
       'Clasp your hands in front of you and lower your head in line with your arms.',
@@ -111,7 +111,7 @@ List<Exercise> beginnerExercises = [
     id: 9,
     name: 'Overhead Reach',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Overhead_Reach.gif',
+    imagePath: 'assets/gif/Beginner/Overhead_Reach.gif',
     time: '60',
     steps: [
       'Extend each arm overhead. Reach to the opposite side.',
@@ -123,7 +123,7 @@ List<Exercise> beginnerExercises = [
     id: 10,
     name: 'Gentle Twist',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Gentle_Twist.gif',
+    imagePath: 'assets/gif/Beginner/Gentle_Twist.gif',
     time: '60',
     steps: [
       'Start with your feet firmly planted on the floor. As you inhale, press down into your seat, sit up straight and lift your arms up overhead.',
@@ -135,7 +135,7 @@ List<Exercise> beginnerExercises = [
     id: 11,
     name: 'Toe taps',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Toe_Taps.gif',
+    imagePath: 'assets/gif/Beginner/Toe_Taps.gif',
     time: '60',
     steps: [
       'Sitting in a chair and keeping your heels on the floor.',
@@ -147,7 +147,7 @@ List<Exercise> beginnerExercises = [
     id: 12,
     name: 'Heel Raises',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Heel_Raises.gif',
+    imagePath: 'assets/gif/Beginner/Heel_Raises.gif',
     time: '60',
     steps: [
       'Sitting in a chair, keep your toes and the balls of your feet on the floor and lift your heels.',
@@ -158,7 +158,7 @@ List<Exercise> beginnerExercises = [
     id: 13,
     name: 'Ankle Rotations',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Ankle_Rotations.gif',
+    imagePath: 'assets/gif/Beginner/Ankle_Rotations.gif',
     time: '60',
     steps: [
       'Seated in a chair, lift your right foot off the floor and slowly rotate your foot 5 times to the right and then 5 times to the left.',
@@ -169,7 +169,7 @@ List<Exercise> beginnerExercises = [
     id: 14,
     name: 'Knee Lift',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Knee_Lift.gif',
+    imagePath: 'assets/gif/Beginner/Knee_Lift.gif',
     time: '60',
     steps: [
       'Seated in a chair, hold the sides of the chair with your arms and lift your leg. ',

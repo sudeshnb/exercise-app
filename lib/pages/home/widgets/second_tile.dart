@@ -9,7 +9,12 @@ class ExtraExerciseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          '/ViewAllExercisePage',
+          arguments: level,
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

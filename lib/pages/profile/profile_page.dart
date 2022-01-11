@@ -1,5 +1,10 @@
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/space.dart';
+import 'package:exercise_app/pages/profile/widgets/dob_picker.dart';
+import 'package:exercise_app/pages/profile/widgets/gender_picker.dart';
+import 'package:exercise_app/pages/profile/widgets/height_picker.dart';
+import 'package:exercise_app/pages/profile/widgets/name_picker.dart';
+import 'package:exercise_app/pages/profile/widgets/weight_picker.dart';
 import 'package:exercise_app/widgets/custom_round_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +17,65 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String userName = '';
+  String userGender = '';
+  String userHeight = '';
+  String userweight = '';
+  String userDob = '';
+  String bmiData = '';
+  double bmiValue = 0.0;
+  double level = 0.0;
+  void bmiCalculation(double value) {
+    if (value > 0.0 && value <= 18.49) {
+      setState(() {
+        bmiData = 'Not meet the standard';
+        if (value > 15) {
+          level = value * 3;
+        } else {
+          level = 5;
+        }
+      });
+    } else if (value >= 18.50 && value <= 24.9) {
+      setState(() {
+        bmiData = 'Normal';
+        level = value * 3;
+      });
+    } else if (value >= 25 && value <= 29.9) {
+      setState(() {
+        bmiData = 'Overweight';
+        if (26 > value) {
+          level = value * 7.2;
+        } else {
+          level = value * 8;
+        }
+      });
+    } else if (value >= 30 && value <= 34.9) {
+      setState(() {
+        bmiData = 'Obesity Degree 1';
+
+        if (31 > value) {
+          level = value * 8.1;
+        } else {
+          level = value * 8.6;
+        }
+      });
+    } else if (value >= 35 && value <= 39.9) {
+      setState(() {
+        bmiData = 'Obesity Degree 2';
+        if (36 > value) {
+          level = value * 8.7;
+        } else {
+          level = value * 9;
+        }
+      });
+    } else if (value >= 40) {
+      setState(() {
+        bmiData = 'Obesity Degree 3';
+        level = 362;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,32 +102,82 @@ class _ProfilePageState extends State<ProfilePage> {
               settingsTile(
                 'Name',
                 'name',
-                '0.0',
-                () {},
+                userName.isNotEmpty ? userName : '0.0',
+                () {
+                  showDialog(
+                      context: context,
+                      builder: (builder) {
+                        return NamePicker(
+                          name: (p0) {
+                            setState(() => userName = p0);
+                          },
+                        );
+                      });
+                },
               ),
               settingsTile(
                 'Gender',
                 'gender',
-                '0.0',
-                () {},
+                userGender.isNotEmpty ? userGender : '0.0',
+                () {
+                  showDialog(
+                      context: context,
+                      builder: (builder) {
+                        return GenderPicker(
+                          gender: (p0) {
+                            setState(() => userGender = p0);
+                          },
+                        );
+                      });
+                },
               ),
               settingsTile(
                 'Height',
                 'height',
-                '0.0',
-                () {},
+                userHeight.isNotEmpty ? '$userHeight cm' : '0.0',
+                () {
+                  showDialog(
+                      context: context,
+                      builder: (builder) {
+                        return HeightPicker(
+                          height: (p0) {
+                            setState(() => userHeight = p0);
+                          },
+                        );
+                      });
+                },
               ),
               settingsTile(
                 'Weight',
                 'weight',
-                '0.0',
-                () {},
+                userweight.isNotEmpty ? '$userweight kg' : '0.0',
+                () {
+                  showDialog(
+                      context: context,
+                      builder: (builder) {
+                        return WeightPicker(
+                          weight: (p0) {
+                            setState(() => userweight = p0);
+                          },
+                        );
+                      });
+                },
               ),
               settingsTile(
                 'Date of birth',
                 'birthday',
-                '0.0',
-                () {},
+                userDob.isNotEmpty ? userDob : '0.0',
+                () {
+                  showDialog(
+                      context: context,
+                      builder: (builder) {
+                        return DOBPicker(
+                          dob: (p0) {
+                            setState(() => userDob = p0);
+                          },
+                        );
+                      });
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -71,7 +185,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   vertical: 20.0,
                 ),
                 child: CustomRoundBtn(
-                  onTap: () {},
+                  onTap: () {
+                    if (userHeight.isNotEmpty || userweight.isNotEmpty) {
+                      var values = (double.parse(userweight) /
+                              (double.parse(userHeight) *
+                                  double.parse(userHeight))) *
+                          10000;
+
+                      bmiValue = double.parse(values.toStringAsFixed(1));
+                      bmiCalculation(bmiValue);
+                    }
+                  },
                   text: 'Calculate',
                 ),
               ),
@@ -133,21 +257,23 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                     ),
-                    Positioned(
-                      top: 0,
-                      left: 50,
-                      child: Text(
-                        'BMI(kg/m2)',
-                        style: TextStyle(
-                          color: black.withOpacity(0.7),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                    bmiValue != 0.0
+                        ? Positioned(
+                            top: 0,
+                            left: level > 37 ? level - 30 : level,
+                            child: Text(
+                              bmiValue.toString(),
+                              style: TextStyle(
+                                color: black.withOpacity(0.7),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     Positioned(
                       top: 15,
-                      left: 50,
+                      left: bmiValue != 0.0 ? level : 5,
                       child: Container(
                         width: 2.0,
                         color: black,
@@ -157,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        'BMI(kg/m2)',
+                        bmiData,
                         style: TextStyle(
                           color: black.withOpacity(0.7),
                           letterSpacing: 0.3,

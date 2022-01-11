@@ -4,7 +4,7 @@ List<Exercise> advancedExercises = [
   Exercise(
     id: 0,
     name: 'Arm Circles',
-    imagePath: 'assets/gif/Arm_Circles.gif',
+    imagePath: 'assets/gif/Advanced/Arm_Circles.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -15,7 +15,7 @@ List<Exercise> advancedExercises = [
   Exercise(
     id: 1,
     name: 'Ankle Circles',
-    imagePath: 'assets/gif/Ankle_circles.gif',
+    imagePath: 'assets/gif/Advanced/Ankle_circles.gif',
     time: '60',
     duration: const Duration(seconds: 60),
     steps: [
@@ -28,7 +28,7 @@ List<Exercise> advancedExercises = [
     id: 2,
     name: 'Seated Forward Bend',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Seated_Forward_Bend.gif',
+    imagePath: 'assets/gif/Advanced/Seated_Forward_Bend.gif',
     time: '60',
     steps: [
       'Sit with your legs extended in front of you. Lift your arms.',
@@ -40,7 +40,7 @@ List<Exercise> advancedExercises = [
     id: 3,
     name: 'Standing Forward Bend',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Standing_Forward_Bend.gif',
+    imagePath: 'assets/gif/Advanced/Standing_Forward_Bend.gif',
     time: '60',
     steps: [
       'From a standing position, slowly hinge at your hips to bend forward.',
@@ -52,7 +52,7 @@ List<Exercise> advancedExercises = [
     id: 4,
     name: 'Standing March',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Standing_March.gif',
+    imagePath: 'assets/gif/Advanced/Standing_March.gif',
     time: '60',
     steps: [
       'Stand with feet shoulder-width apart, hands on hips, and knees close together.',
@@ -64,7 +64,7 @@ List<Exercise> advancedExercises = [
     id: 5,
     name: 'Tree Pose',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Tree_Pose.gif',
+    imagePath: 'assets/gif/Advanced/Tree_Pose.gif',
     time: '60',
     steps: [
       'From standing, shift your weight onto your right foot. Place your hands in any comfortable position.',
@@ -76,7 +76,7 @@ List<Exercise> advancedExercises = [
     id: 6,
     name: 'Single Leg Deadlift',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Single_Leg_Deadlift.gif',
+    imagePath: 'assets/gif/Advanced/Single_Leg_Deadlift.gif',
     time: '60',
     steps: [
       'Stand with your arms at your sides, with your right foot a few inches off the floor. Keeping your left knee very slightly bent, lean forward onto your left leg, raising your right leg behind you and reaching toward the floor with your hands. ',
@@ -88,7 +88,7 @@ List<Exercise> advancedExercises = [
     id: 7,
     name: 'Reverse Lunges',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Reverse_Lunges.gif',
+    imagePath: 'assets/gif/Advanced/Reverse_Lunges.gif',
     time: '60',
     steps: [
       'Stand upright with your hands on your hips. Step backward with your right leg, dropping your right knee toward the ground and bending your left knee to 90 degrees. ',
@@ -100,7 +100,7 @@ List<Exercise> advancedExercises = [
     id: 8,
     name: 'Double Leg Hopes',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Double_leg_hops.gif',
+    imagePath: 'assets/gif/Advanced/Double_leg_hops.gif',
     time: '60',
     steps: [
       'Stand straight with your arms at your sides.',
@@ -112,7 +112,7 @@ List<Exercise> advancedExercises = [
     id: 9,
     name: 'High Knee Twist',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/high_knee_twist.gif',
+    imagePath: 'assets/gif/Advanced/high_knee_twist.gif',
     time: '60',
     steps: [
       'Start with your right foot extended back behind you and your hands together, reaching up and out. Keep the weight in your left foot.',
@@ -124,7 +124,7 @@ List<Exercise> advancedExercises = [
     id: 10,
     name: 'Jumping Jacks',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Jumping_Jacks.gif',
+    imagePath: 'assets/gif/Advanced/Jumping_Jacks.gif',
     time: '60',
     steps: [
       'Start with feet together and arms down by the side. Bend your knees slightly.',
@@ -136,7 +136,7 @@ List<Exercise> advancedExercises = [
     id: 11,
     name: 'Squat Jumps',
     duration: const Duration(seconds: 60),
-    imagePath: 'assets/gif/Squat_Jumps.gif',
+    imagePath: 'assets/gif/Advanced/Squat_Jumps.gif',
     time: '60',
     steps: [
       'Stand with the feet hip-width apart and arms at the sides. Bend at the knees to squat. ',
