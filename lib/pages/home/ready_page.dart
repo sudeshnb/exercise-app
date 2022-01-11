@@ -82,13 +82,21 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
           widget.level.title,
           style: TextStyle(
             color: black.withOpacity(0.7),
-            fontSize: 24.0,
+            fontSize: 20.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {
+              if (isPlay) {
+                setState(() {
+                  isPause = true;
+                  isPlay = false;
+                  isDone = false;
+                  restTimer.pause();
+                });
+              }
               Navigator.of(context).pushNamed(
                 '/ExerciseDetailsPage',
                 arguments: widget.level.exercise[selectIndex],

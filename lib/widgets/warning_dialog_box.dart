@@ -31,7 +31,7 @@ class WarningDialogBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/icon/warning_shield.png',
+                  'assets/icons/warning_shield.png',
                   color: Colors.orange.withOpacity(0.7),
                   height: 30.0,
                 ),

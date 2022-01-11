@@ -124,7 +124,7 @@ class _HeightPickerState extends State<HeightPicker> {
                   Navigator.pop(context);
                 },
                 fontColor: darkBlue,
-                color: blue.withOpacity(0.1),
+                color: red.withOpacity(0.7),
                 btnTxt: 'Cancel',
               ),
             ],

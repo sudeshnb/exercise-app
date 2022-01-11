@@ -2,6 +2,7 @@ import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/pages/profile/widgets/weekdays_picker.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
+import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class _RemindersPageState extends State<RemindersPage> {
   List alarm = [];
   List repeat = [];
   String cha3 = '';
+  int ek = 0;
   bool _switchValue = true;
   late DateTime alarmTime;
   @override
@@ -43,125 +45,134 @@ class _RemindersPageState extends State<RemindersPage> {
         ),
       ),
       body: alarm.isNotEmpty
-          ? ListView(
-              children: alarm.map<Widget>((alarms) {
-                var time = DateFormat().add_jm().format(alarmTime);
-                return Container(
-                  height: 120.0,
-                  margin: const EdgeInsets.all(10.0),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  decoration: BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: blueShadow.withOpacity(0.5),
-                        offset: const Offset(1, 5),
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            time,
-                            style: TextStyle(
-                              color: black.withOpacity(0.7),
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
+          ? CustomPicker(
+              child: ListView(
+                children: alarm.map<Widget>((alarms) {
+                  var time = DateFormat().add_jm().format(alarmTime);
+                  return Container(
+                    height: 120.0,
+                    margin: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10.0),
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: blueShadow.withOpacity(0.5),
+                          offset: const Offset(1, 5),
+                          blurRadius: 10,
+                          spreadRadius: 1,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              time,
+                              style: TextStyle(
+                                color: black.withOpacity(0.7),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Transform.scale(
-                            scale: 0.7,
-                            child: CupertinoSwitch(
-                              activeColor: blue,
-                              value: _switchValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  _switchValue = value;
-                                });
-                              },
+                            Transform.scale(
+                              scale: 0.7,
+                              child: CupertinoSwitch(
+                                activeColor: blue,
+                                value: _switchValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _switchValue = value;
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Repeat',
-                                style: TextStyle(
-                                  color: black.withOpacity(0.6),
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Repeat',
+                                  style: TextStyle(
+                                    color: black.withOpacity(0.6),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              h10,
-                              Row(
-                                children: repeat.map<Widget>((e) {
-                                  return Text(
-                                    '${e[0]}${e[1]}${e[2]},',
-                                    style: TextStyle(
-                                      color: darkBlue.withOpacity(0.7),
-                                      fontSize: 15.0,
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  );
-                                }).toList(),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  await showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return WeekDaysPicker(
-                                          callBack: (p0) {
-                                            setState(() {
-                                              repeat = p0;
-                                            });
-                                          },
-                                        );
-                                      });
-                                },
-                                child: Image.asset(
-                                  'assets/icons/edit.png',
+                                h10,
+                                SizedBox(
                                   height: 30,
-                                  color: darkBlue.withOpacity(0.8),
+                                  width: 250,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: repeat.length,
+                                    itemBuilder: (context, index) {
+                                      var endItem = repeat.length - 1;
+                                      return Text(
+                                        '${repeat[index].substring(0, 3)}${endItem == index ? '' : ','}',
+                                        style: TextStyle(
+                                          color: darkBlue.withOpacity(0.7),
+                                          fontSize: 15.0,
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return WeekDaysPicker(
+                                            callBack: (p0) {
+                                              setState(() {
+                                                repeat = p0;
+                                              });
+                                            },
+                                          );
+                                        });
+                                  },
+                                  child: Image.asset(
+                                    'assets/icons/edit.png',
+                                    height: 25,
+                                    color: darkBlue.withOpacity(0.8),
+                                  ),
                                 ),
-                              ),
-                              w20,
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() => alarm.remove(alarms));
-                                },
-                                child: Image.asset(
-                                  'assets/icons/delete.png',
-                                  height: 30,
-                                  // color: red.withOpacity(0.9),
+                                w20,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() => alarm.remove(alarms));
+                                  },
+                                  child: Image.asset(
+                                    'assets/icons/delete.png',
+                                    height: 25,
+                                    // color: red.withOpacity(0.9),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
             )
           : Center(
               child: Column(

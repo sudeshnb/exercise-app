@@ -6,6 +6,7 @@ import 'package:exercise_app/pages/profile/widgets/height_picker.dart';
 import 'package:exercise_app/pages/profile/widgets/name_picker.dart';
 import 'package:exercise_app/pages/profile/widgets/weight_picker.dart';
 import 'package:exercise_app/widgets/custom_round_btn.dart';
+import 'package:exercise_app/widgets/warning_dialog_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -194,6 +195,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       bmiValue = double.parse(values.toStringAsFixed(1));
                       bmiCalculation(bmiValue);
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const WarningDialogBox(
+                              title:
+                                  'Please enter your weight and height it must necessarily be used for calculating.',
+                            );
+                          });
                     }
                   },
                   text: 'Calculate',

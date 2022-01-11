@@ -39,8 +39,8 @@ class DialogBoxButton extends StatelessWidget {
         child: Center(
           child: Text(
             btnTxt,
-            style: TextStyle(
-              color: fontColor ?? white,
+            style: const TextStyle(
+              color: white,
               fontSize: 21.0,
               letterSpacing: 1,
               fontWeight: FontWeight.bold,

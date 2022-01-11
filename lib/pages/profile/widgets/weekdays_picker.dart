@@ -97,8 +97,8 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
                 Navigator.pop(context);
               },
               btnTxt: 'Cancel',
-              fontColor: darkBlue,
-              color: blue.withOpacity(0.1),
+              fontColor: white,
+              color: red.withOpacity(0.7),
             ),
           ],
         ),
