@@ -1,6 +1,5 @@
 import 'package:exercise_app/data/advanced_exercises.dart';
 import 'package:exercise_app/data/beginner_exercises.dart';
-import 'package:exercise_app/data/exercise_model.dart';
 import 'package:exercise_app/data/intermediate_exercises.dart';
 import 'package:exercise_app/data/low_impact_cardio_workout.dart';
 

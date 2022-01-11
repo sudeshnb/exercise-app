@@ -99,7 +99,9 @@ class ReportsPage extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/HistoryPage');
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     color: darkBlue,

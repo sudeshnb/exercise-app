@@ -15,6 +15,13 @@ class ViewAllExercise extends StatefulWidget {
 }
 
 class _ViewAllExerciseState extends State<ViewAllExercise> {
+  late int editSecond, stableValue;
+  @override
+  void initState() {
+    editSecond = stableValue = int.parse(widget.level.exercise[0].time);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -122,7 +129,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                             Column(
                               children: [
                                 Text(
-                                  '${widget.level.exercise[0].time}',
+                                  editSecond.toString(),
                                   style: const TextStyle(
                                     color: black,
                                     fontSize: 40.0,
@@ -144,10 +151,19 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                             w10,
                             Column(
                               children: [
-                                secondUpDownBtn(onTap: () {}, image: 'up.png'),
+                                secondUpDownBtn(
+                                    onTap: () {
+                                      setState(() => editSecond++);
+                                    },
+                                    image: 'up.png'),
                                 h10,
                                 secondUpDownBtn(
-                                    onTap: () {}, image: 'down.png'),
+                                    onTap: () {
+                                      if (stableValue < editSecond) {
+                                        setState(() => editSecond--);
+                                      }
+                                    },
+                                    image: 'down.png'),
                               ],
                             ),
                           ],
@@ -250,6 +266,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
 
   Widget secondUpDownBtn({required String image, required Function() onTap}) {
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         height: 30,
         width: 30,

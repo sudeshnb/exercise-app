@@ -1,6 +1,11 @@
+import 'package:exercise_app/data/exercise_model.dart';
 import 'package:exercise_app/data/level_model.dart';
+import 'package:exercise_app/pages/home/complete_page.dart';
+import 'package:exercise_app/pages/home/exercise_details_page.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
+import 'package:exercise_app/pages/home/ready_page.dart';
 import 'package:exercise_app/pages/home/view_all_exercise.dart';
+import 'package:exercise_app/pages/report/history_page.dart';
 import 'package:exercise_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +26,31 @@ class RouteGenerator {
             level: level,
           ),
         );
+      case '/ReadyPage':
+        Levels level = arguments as Levels;
+        return createRoute(
+          child: ReadyPage(
+            level: level,
+          ),
+        );
+      case '/ExerciseDetailsPage':
+        Exercise exercise = arguments as Exercise;
+        return createRoute(
+          child: ExerciseDetailsPage(
+            exercise: exercise,
+          ),
+        );
+
+      case '/CompletePage':
+        Levels level = arguments as Levels;
+        return createRoute(
+          child: CompletePage(
+            level: level,
+          ),
+        );
+
+      case '/HistoryPage':
+        return createRoute(child: const HistoryPage());
 
       default:
         // If there is no such named route in the switch statement
