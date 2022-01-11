@@ -317,7 +317,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget reminderButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed('/RemindersPage');
+      },
       child: Row(
         children: [
           Container(

@@ -5,6 +5,7 @@ import 'package:exercise_app/pages/home/exercise_details_page.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
 import 'package:exercise_app/pages/home/ready_page.dart';
 import 'package:exercise_app/pages/home/view_all_exercise.dart';
+import 'package:exercise_app/pages/profile/reminders_page.dart';
 import 'package:exercise_app/pages/report/history_page.dart';
 import 'package:exercise_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,9 @@ class RouteGenerator {
 
       case '/HistoryPage':
         return createRoute(child: const HistoryPage());
+
+      case '/RemindersPage':
+        return createRoute(child: const RemindersPage());
 
       default:
         // If there is no such named route in the switch statement
