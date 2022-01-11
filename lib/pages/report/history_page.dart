@@ -1,6 +1,7 @@
 import 'package:exercise_app/pages/report/history_calender.dart';
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
+import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -34,7 +35,9 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
         ),
       ),
-      body: const HistoryCalender(),
+      body: const CustomPicker(
+        child: HistoryCalender(),
+      ),
     );
   }
 }
