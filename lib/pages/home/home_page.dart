@@ -19,9 +19,9 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(20 * SizeConfig.height!),
+          preferredSize: Size.fromHeight(18 * SizeConfig.height!),
           child: Container(
-            height: 13 * SizeConfig.height!,
+            height: 10 * SizeConfig.height!,
             padding: EdgeInsets.only(
               top: 2 * SizeConfig.height!,
               right: 1.5 * SizeConfig.height!,

@@ -121,7 +121,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                 children: [
                   h30,
                   Text(
-                    widget.level.exercise[position].getName,
+                    widget.level.exercise[position].name,
                     style: TextStyle(
                       color: darkBlue,
                       fontWeight: FontWeight.bold,

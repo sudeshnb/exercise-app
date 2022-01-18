@@ -242,7 +242,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                                   ),
                                   w30,
                                   Text(
-                                    exer.getName,
+                                    '${exer.name}',
                                     style: TextStyle(
                                       color: black.withOpacity(0.7),
                                       letterSpacing: 0.9,

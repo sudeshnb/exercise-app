@@ -34,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           height: 8 * SizeConfig.height!,
-          padding: EdgeInsets.symmetric(vertical: 2 * SizeConfig.width!),
+          padding: EdgeInsets.symmetric(vertical: 1 * SizeConfig.height!),
           decoration: BoxDecoration(
             color: white,
             boxShadow: [

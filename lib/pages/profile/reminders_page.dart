@@ -22,7 +22,6 @@ class RemindersPage extends StatefulWidget {
 class _RemindersPageState extends State<RemindersPage> {
   List<Alarm> arlams = [];
   List repeat = [];
-  bool _switchValue = true;
   late DateTime alarmTime;
   bool isLoading = false;
   @override
@@ -71,7 +70,6 @@ class _RemindersPageState extends State<RemindersPage> {
                   var time = DateFormat().add_jm().format(remind.remindTime);
 
                   return Container(
-                    height: 16 * SizeConfig.height!,
                     margin: EdgeInsets.all(2.3 * SizeConfig.height!),
                     padding: EdgeInsets.symmetric(
                         horizontal: 3 * SizeConfig.width!,
@@ -107,11 +105,18 @@ class _RemindersPageState extends State<RemindersPage> {
                               scale: 0.7,
                               child: CupertinoSwitch(
                                 activeColor: blue,
-                                value: _switchValue,
+                                value: remind.isOn,
                                 onChanged: (value) {
                                   setState(() {
-                                    _switchValue = value;
+                                    Alarm alarm = Alarm(
+                                      id: remind.id,
+                                      isOn: value,
+                                      weekID: remind.weekID,
+                                      remindTime: remind.remindTime,
+                                    );
+                                    ExerciseDatabase.instance.update(alarm);
                                   });
+                                  refreshNotes();
                                 },
                               ),
                             ),
@@ -126,14 +131,14 @@ class _RemindersPageState extends State<RemindersPage> {
                                 Text(
                                   'Repeat',
                                   style: TextStyle(
-                                    color: black.withOpacity(0.6),
+                                    color: black.withOpacity(0.4),
                                     fontSize: 2.2 * SizeConfig.text!,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                h10,
+                                // h10,
                                 SizedBox(
-                                  height: 4 * SizeConfig.height!,
+                                  height: 2 * SizeConfig.height!,
                                   width: 30 * SizeConfig.height!,
                                   child: FutureBuilder<List<RepateArlam>>(
                                       future: ExerciseDatabase.instance
@@ -185,7 +190,8 @@ class _RemindersPageState extends State<RemindersPage> {
                                   },
                                   child: Image.asset(
                                     'assets/icons/edit.png',
-                                    height: 3 * SizeConfig.height!,
+                                    scale: 1.2,
+                                    //height: 2.5 * SizeConfig.height!,
                                     color: darkBlue.withOpacity(0.8),
                                   ),
                                 ),
@@ -199,7 +205,8 @@ class _RemindersPageState extends State<RemindersPage> {
                                   },
                                   child: Image.asset(
                                     'assets/icons/delete.png',
-                                    height: 3 * SizeConfig.height!,
+                                    scale: 1.8,
+                                    // height: 3 * SizeConfig.height!,
                                     // color: red.withOpacity(0.9),
                                   ),
                                 ),
