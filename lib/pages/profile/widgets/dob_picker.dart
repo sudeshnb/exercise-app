@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:exercise_app/widgets/picker.dart';
@@ -23,14 +24,14 @@ class _DOBPickerState extends State<DOBPicker> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: CustomPicker(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(2.5 * SizeConfig.height!),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -38,7 +39,7 @@ class _DOBPickerState extends State<DOBPicker> {
                 'Date of birth',
                 style: TextStyle(
                   color: black.withOpacity(0.7),
-                  fontSize: 20.0,
+                  fontSize: 2.5 * SizeConfig.text!,
                   letterSpacing: 0.7,
                   fontWeight: FontWeight.w600,
                 ),
@@ -55,15 +56,15 @@ class _DOBPickerState extends State<DOBPicker> {
               ),
               h20,
               SizedBox(
-                height: 100.0,
-                width: 220.0,
+                height: 10 * SizeConfig.height!,
+                width: 26 * SizeConfig.height!,
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60.0,
+                      width: 6.5 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: mounths.length,
-                        itemExtent: 50,
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -81,7 +82,7 @@ class _DOBPickerState extends State<DOBPicker> {
                               mounths[index],
                               style: TextStyle(
                                 color: black.withOpacity(0.7),
-                                fontSize: 20.0,
+                                fontSize: 2.5 * SizeConfig.text!,
                                 letterSpacing: 0.7,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -92,10 +93,10 @@ class _DOBPickerState extends State<DOBPicker> {
                     ),
                     w20,
                     SizedBox(
-                      width: 50.0,
+                      width: 6.5 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: 31,
-                        itemExtent: 50,
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -113,7 +114,7 @@ class _DOBPickerState extends State<DOBPicker> {
                               '${index + 1}',
                               style: TextStyle(
                                 color: black.withOpacity(0.7),
-                                fontSize: 20.0,
+                                fontSize: 2.5 * SizeConfig.text!,
                                 letterSpacing: 0.7,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -124,10 +125,10 @@ class _DOBPickerState extends State<DOBPicker> {
                     ),
                     w10,
                     SizedBox(
-                      width: 60.0,
+                      width: 6.5 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: 120,
-                        itemExtent: 50,
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -147,7 +148,7 @@ class _DOBPickerState extends State<DOBPicker> {
                               now.toString(),
                               style: TextStyle(
                                 color: black.withOpacity(0.7),
-                                fontSize: 20.0,
+                                fontSize: 2.5 * SizeConfig.text!,
                                 letterSpacing: 0.7,
                                 fontWeight: FontWeight.w600,
                               ),

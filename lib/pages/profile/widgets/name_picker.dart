@@ -1,25 +1,46 @@
 import 'dart:ui';
-
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/material.dart';
 
-class NamePicker extends StatelessWidget {
-  final Function(String) name;
-  const NamePicker({Key? key, required this.name}) : super(key: key);
+class NamePicker extends StatefulWidget {
+  final Function(String) getName;
+  final String name;
+  const NamePicker({Key? key, required this.getName, required this.name})
+      : super(key: key);
+
+  @override
+  State<NamePicker> createState() => _NamePickerState();
+}
+
+class _NamePickerState extends State<NamePicker> {
+  TextEditingController controller = TextEditingController();
+  bool isInitialValue = false;
+
+  @override
+  void initState() {
+    setState(() {
+      if (widget.name.isNotEmpty) {
+        isInitialValue = true;
+      } else {
+        isInitialValue = false;
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     return Dialog(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(2.5 * SizeConfig.height!),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -27,7 +48,7 @@ class NamePicker extends StatelessWidget {
               'Enter your name',
               style: TextStyle(
                 color: black.withOpacity(0.7),
-                fontSize: 20.0,
+                fontSize: 2.5 * SizeConfig.text!,
                 letterSpacing: 0.7,
                 fontWeight: FontWeight.w600,
               ),
@@ -44,8 +65,8 @@ class NamePicker extends StatelessWidget {
             ),
             h20,
             Container(
-              height: 50.0,
-              width: 300.0,
+              height: 6 * SizeConfig.height!,
+              width: 35 * SizeConfig.height!,
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -61,21 +82,33 @@ class NamePicker extends StatelessWidget {
               child: TextFormField(
                 controller: controller,
                 autofocus: true,
-                style: const TextStyle(
+                style: TextStyle(
                   color: blue,
                   letterSpacing: 0.7,
-                  fontSize: 20,
+                  fontSize: 2.5 * SizeConfig.text!,
                   fontWeight: FontWeight.w600,
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
+                  hintText: widget.name,
+                  hintStyle: TextStyle(
+                    color: blue,
+                    letterSpacing: 0.7,
+                    fontSize: 2.5 * SizeConfig.text!,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
             h30,
             DialogBoxButton(
               onTap: () {
-                name(controller.text);
+                setState(() {
+                  if (isInitialValue) {
+                    controller.text = widget.name;
+                  }
+                });
+                widget.getName(controller.text);
                 Navigator.pop(context);
               },
               btnTxt: 'Coutinue',

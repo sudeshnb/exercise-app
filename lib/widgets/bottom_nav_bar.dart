@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/data/nav_button_data.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
 import 'package:exercise_app/pages/profile/profile_page.dart';
@@ -32,8 +33,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          height: 70.0,
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          height: 8 * SizeConfig.height!,
+          padding: EdgeInsets.symmetric(vertical: 2 * SizeConfig.width!),
           decoration: BoxDecoration(
             color: white,
             boxShadow: [
@@ -62,7 +63,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         selectBtn == i
                             ? navButtons[i].selectImage
                             : navButtons[i].unselectImage,
-                        height: 28.0,
+                        height: 3.3 * SizeConfig.height!,
                         color: selectBtn == i ? blue : darkGrey,
                       ),
                       Text(

@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/material.dart';
 
 class CustomRoundBtn extends StatelessWidget {
@@ -12,12 +13,12 @@ class CustomRoundBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 10.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: 3 * SizeConfig.height!,
+          vertical: 1.2 * SizeConfig.height!,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: BorderRadius.circular(5 * SizeConfig.height!),
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -34,9 +35,9 @@ class CustomRoundBtn extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: white,
-              fontSize: 21.0,
+              fontSize: 2.7 * SizeConfig.text!,
               letterSpacing: 1,
               fontWeight: FontWeight.bold,
             ),

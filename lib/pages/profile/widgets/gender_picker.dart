@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/material.dart';
@@ -26,13 +27,13 @@ class _GenderPickerState extends State<GenderPicker> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(2 * SizeConfig.height!),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -40,7 +41,7 @@ class _GenderPickerState extends State<GenderPicker> {
               'Select your gender',
               style: TextStyle(
                 color: black.withOpacity(0.7),
-                fontSize: 20.0,
+                fontSize: 2.6 * SizeConfig.text!,
                 letterSpacing: 0.7,
                 fontWeight: FontWeight.w600,
               ),

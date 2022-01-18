@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/material.dart';
 
 class DialogBoxButton extends StatelessWidget {
@@ -19,10 +20,10 @@ class DialogBoxButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 40.0,
-        margin: const EdgeInsets.only(bottom: 10.0),
+        height: 5 * SizeConfig.height!,
+        margin: EdgeInsets.only(bottom: 1.2 * SizeConfig.height!),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(3 * SizeConfig.height!),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -39,9 +40,9 @@ class DialogBoxButton extends StatelessWidget {
         child: Center(
           child: Text(
             btnTxt,
-            style: const TextStyle(
+            style: TextStyle(
               color: white,
-              fontSize: 21.0,
+              fontSize: 2.5 * SizeConfig.text!,
               letterSpacing: 1,
               fontWeight: FontWeight.bold,
             ),

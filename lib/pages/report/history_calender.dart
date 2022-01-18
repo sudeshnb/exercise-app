@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:exercise_app/Core/calender/table_calendar.dart';
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box.dart';
 import 'package:flutter/material.dart';
@@ -217,8 +218,8 @@ class _HistoryCalenderState extends State<HistoryCalender> {
   Container eventListTile(
       String date, List<Event> value, int index, BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
-      padding: const EdgeInsets.only(bottom: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 1 * SizeConfig.height!),
+      padding: EdgeInsets.symmetric(vertical: 1 * SizeConfig.height!),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -231,11 +232,11 @@ class _HistoryCalenderState extends State<HistoryCalender> {
       ),
       child: ListTile(
         leading: CircleAvatar(
-          radius: 18,
+          radius: 2.3 * SizeConfig.height!,
           backgroundColor: blue,
           child: Image.asset(
             'assets/icons/done.png',
-            height: 20,
+            height: 2.5 * SizeConfig.height!,
             color: white,
           ),
         ),
@@ -246,7 +247,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
               date,
               style: TextStyle(
                 color: black.withOpacity(0.4),
-                fontSize: 13,
+                fontSize: 1.7 * SizeConfig.text!,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -255,7 +256,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
               value[index].title.toString(),
               style: TextStyle(
                 color: black.withOpacity(0.7),
-                fontSize: 16,
+                fontSize: 2 * SizeConfig.text!,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -266,7 +267,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
           children: [
             Image.asset(
               'assets/icons/gas.png',
-              height: 15,
+              height: 2 * SizeConfig.height!,
               color: orange,
             ),
             w5,
@@ -274,7 +275,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
             w20,
             Image.asset(
               'assets/icons/time.png',
-              height: 18,
+              height: 2.5 * SizeConfig.height!,
               color: blue,
             ),
             w5,

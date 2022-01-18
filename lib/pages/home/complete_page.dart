@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
@@ -38,35 +39,33 @@ class CompletePage extends StatelessWidget {
             height: height,
             width: double.infinity,
             margin: EdgeInsets.only(top: height / 3.2),
-            padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 20.0,
+            padding: EdgeInsets.symmetric(
+              vertical: 2.5 * SizeConfig.height!,
+              horizontal: 2.5 * SizeConfig.height!,
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
+                topLeft: Radius.circular(4 * SizeConfig.height!),
+                topRight: Radius.circular(4 * SizeConfig.height!),
               ),
             ),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Well Done, You\'ve completed this workout!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black87,
-                    fontSize: 25.0,
+                    fontSize: 3 * SizeConfig.text!,
                     letterSpacing: 0.7,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 h10,
-                Image.asset(
-                  'assets/icons/trophy.PNG',
-                  height: 200,
-                ),
+                Image.asset('assets/icons/trophy.PNG',
+                    height: 25 * SizeConfig.height!),
                 h10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -74,24 +73,24 @@ class CompletePage extends StatelessWidget {
                     Column(
                       children: [
                         CircleAvatar(
-                          radius: 30.0,
+                          radius: 4 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
                             level.kcal,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: white,
-                              fontSize: 19.0,
+                              fontSize: 2.5 * SizeConfig.text!,
                               letterSpacing: 0.7,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                         h10,
-                        const Text(
+                        Text(
                           'Calories Burned',
                           style: TextStyle(
                             color: black,
-                            fontSize: 18.0,
+                            fontSize: 2.2 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),
@@ -102,24 +101,24 @@ class CompletePage extends StatelessWidget {
                     Column(
                       children: [
                         CircleAvatar(
-                          radius: 30.0,
+                          radius: 4 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
                             level.time,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: white,
-                              fontSize: 19.0,
+                              fontSize: 2.5 * SizeConfig.text!,
                               letterSpacing: 0.7,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                         h10,
-                        const Text(
+                        Text(
                           'Minutes',
                           style: TextStyle(
                             color: black,
-                            fontSize: 18.0,
+                            fontSize: 2.2 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),

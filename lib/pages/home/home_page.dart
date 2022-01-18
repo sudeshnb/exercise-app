@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/pages/home/widgets/main_tile.dart';
@@ -18,13 +19,13 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(120.0),
+          preferredSize: Size.fromHeight(20 * SizeConfig.height!),
           child: Container(
-            height: 100.0,
-            padding: const EdgeInsets.only(
-              top: 20.0,
-              right: 15.0,
-              bottom: 30.0,
+            height: 13 * SizeConfig.height!,
+            padding: EdgeInsets.only(
+              top: 2 * SizeConfig.height!,
+              right: 1.5 * SizeConfig.height!,
+              bottom: 3 * SizeConfig.height!,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   'Welcome Back!',
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 2 * SizeConfig.text!,
                     letterSpacing: 1.1,
                     color: black.withOpacity(0.8),
                   ),
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "Don't Miss the Fitness!",
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 2 * SizeConfig.text!,
                     letterSpacing: 1.1,
                     color: black.withOpacity(0.8),
                   ),
@@ -50,14 +51,17 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 15.0, bottom: 30.0),
+          padding: EdgeInsets.only(
+            left: 1.5 * SizeConfig.height!,
+            bottom: 3 * SizeConfig.height!,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Exercise',
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 2.7 * SizeConfig.text!,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.1,
                   color: black.withOpacity(0.8),
@@ -65,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               ),
               h30,
               SizedBox(
-                height: 300.0,
+                height: 37 * SizeConfig.height!,
                 child: ListView.builder(
                     itemCount: levels.length - 1,
                     physics: const BouncingScrollPhysics(),
@@ -80,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 'Extra Exercise',
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 2.7 * SizeConfig.text!,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.1,
                   color: black.withOpacity(0.8),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -25,17 +26,16 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: Container(
-          height: 150,
-          width: 150,
-          decoration: BoxDecoration(
-            // color: blue,
-            borderRadius: BorderRadius.circular(100.0),
-            gradient: const LinearGradient(
+          height: 22 * SizeConfig.height!,
+          width: 22 * SizeConfig.height!,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: <Color>[blue, darkBlue],
             ),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
                 color: blueShadow,
                 offset: Offset(0, 10),
@@ -43,7 +43,8 @@ class _SplashPageState extends State<SplashPage> {
                 blurRadius: 20.0,
               )
             ],
-            image: const DecorationImage(
+            image: DecorationImage(
+              fit: BoxFit.cover,
               image: AssetImage('assets/images/Logo.png'),
             ),
           ),

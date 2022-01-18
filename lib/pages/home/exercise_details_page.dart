@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/exercise_model.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
@@ -20,11 +21,11 @@ class ExerciseDetailsPage extends StatelessWidget {
           exercise.name,
           style: TextStyle(
             color: black.withOpacity(0.7),
-            fontSize: 28.0,
+            fontSize: 3.2 * SizeConfig.text!,
             fontWeight: FontWeight.bold,
           ),
         ),
-        leadingWidth: 50,
+        leadingWidth: 6.5 * SizeConfig.height!,
         leading: CustomCircleButton(
           onTap: () {
             Navigator.pop(context);
@@ -34,29 +35,31 @@ class ExerciseDetailsPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 2 * SizeConfig.height!),
           child: ListView(
             children: [
               Image.asset(
                 exercise.imagePath,
-                height: 300.0,
+                height: 40 * SizeConfig.height!,
                 fit: BoxFit.fill,
               ),
               h20,
               for (int i = 0; exercise.steps.length > i; i++)
                 Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 10.0),
+                  margin: EdgeInsets.symmetric(
+                    vertical: 2 * SizeConfig.height!,
+                    horizontal: 1 * SizeConfig.height!,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        radius: 20,
+                        radius: 2.5 * SizeConfig.height!,
                         child: Text(
                           '${i + 1}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: white,
-                            fontSize: 20.0,
+                            fontSize: 2.6 * SizeConfig.text!,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -64,14 +67,14 @@ class ExerciseDetailsPage extends StatelessWidget {
                       ),
                       w20,
                       Container(
-                        width: 260,
+                        width: 35 * SizeConfig.height!,
                         color: white,
                         child: Text(
                           exercise.steps[i],
                           style: TextStyle(
                             color: black.withOpacity(0.6),
                             letterSpacing: 1,
-                            fontSize: 16.0,
+                            fontSize: 2 * SizeConfig.text!,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

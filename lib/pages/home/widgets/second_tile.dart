@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +34,9 @@ class ExtraExerciseTile extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 130.0,
-              width: 200.0,
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              height: 16 * SizeConfig.height!,
+              width: 25 * SizeConfig.height!,
+              padding: EdgeInsets.symmetric(horizontal: 1 * SizeConfig.height!),
               decoration: BoxDecoration(
                 color: black.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(15.0),
@@ -44,9 +45,9 @@ class ExtraExerciseTile extends StatelessWidget {
                 child: Text(
                   level.title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: white,
-                    fontSize: 23.0,
+                    fontSize: 2.8 * SizeConfig.text!,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

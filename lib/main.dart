@@ -1,29 +1,28 @@
-import 'package:exercise_app/Core/color.dart';
-import 'package:exercise_app/Core/route.dart';
-import 'package:exercise_app/pages/splash_page.dart';
+import 'package:exercise_app/data/database/app_db.dart';
+import 'package:exercise_app/exercise_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+// var database;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+// Open the notification and show the reference.
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('logo');
+
+  const InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String? payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+  });
+// Open the notification and show the reference.
+  ExerciseDatabase.instance;
+
   runApp(const ExerciseApp());
-}
-
-class ExerciseApp extends StatelessWidget {
-  const ExerciseApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Exercise App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: white,
-        fontFamily: 'Gilroy',
-      ),
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
-      home: const SplashPage(),
-    );
-  }
 }

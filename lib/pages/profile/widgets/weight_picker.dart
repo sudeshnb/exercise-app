@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:exercise_app/widgets/picker.dart';
@@ -22,14 +23,14 @@ class _WeightPickerState extends State<WeightPicker> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: CustomPicker(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(2.5 * SizeConfig.height!),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -37,7 +38,7 @@ class _WeightPickerState extends State<WeightPicker> {
                 'Weight',
                 style: TextStyle(
                   color: black.withOpacity(0.7),
-                  fontSize: 20.0,
+                  fontSize: 2.5 * SizeConfig.text!,
                   letterSpacing: 0.7,
                   fontWeight: FontWeight.w600,
                 ),
@@ -54,15 +55,15 @@ class _WeightPickerState extends State<WeightPicker> {
               ),
               h20,
               SizedBox(
-                height: 100.0,
-                width: 220.0,
+                height: 10 * SizeConfig.height!,
+                width: 30 * SizeConfig.height!,
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60.0,
+                      width: 8 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: 500,
-                        itemExtent: 50,
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -80,7 +81,7 @@ class _WeightPickerState extends State<WeightPicker> {
                               '${index + 1}',
                               style: TextStyle(
                                 color: black.withOpacity(0.7),
-                                fontSize: 20.0,
+                                fontSize: 2.5 * SizeConfig.text!,
                                 letterSpacing: 0.7,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -94,17 +95,17 @@ class _WeightPickerState extends State<WeightPicker> {
                       '.',
                       style: TextStyle(
                         color: black.withOpacity(0.7),
-                        fontSize: 20.0,
+                        fontSize: 2.5 * SizeConfig.text!,
                         letterSpacing: 0.7,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     w10,
                     SizedBox(
-                      width: 60.0,
+                      width: 8 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: 10,
-                        itemExtent: 50,
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -122,7 +123,7 @@ class _WeightPickerState extends State<WeightPicker> {
                               index.toString(),
                               style: TextStyle(
                                 color: black.withOpacity(0.7),
-                                fontSize: 20.0,
+                                fontSize: 2.5 * SizeConfig.text!,
                                 letterSpacing: 0.7,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -133,8 +134,8 @@ class _WeightPickerState extends State<WeightPicker> {
                     ),
                     w10,
                     Container(
-                      width: 60.0,
-                      height: 50,
+                      width: 8 * SizeConfig.height!,
+                      height: 6 * SizeConfig.height!,
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(color: blue, width: 1),
@@ -146,7 +147,7 @@ class _WeightPickerState extends State<WeightPicker> {
                           'kg',
                           style: TextStyle(
                             color: black.withOpacity(0.7),
-                            fontSize: 20.0,
+                            fontSize: 2.5 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),

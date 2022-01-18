@@ -1,3 +1,4 @@
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/cupertino.dart';
 
 const SizedBox h5 = SizedBox(height: 5.0);
@@ -11,7 +12,7 @@ const SizedBox h40 = SizedBox(height: 40.0);
 const SizedBox h45 = SizedBox(height: 45.0);
 const SizedBox h50 = SizedBox(height: 50.0);
 
-const w2 = SizedBox(width: 2.0);
+final w2 = SizedBox(width: 0.3 * SizeConfig.width!);
 const SizedBox w5 = SizedBox(width: 5.0);
 const SizedBox w10 = SizedBox(width: 10.0);
 const SizedBox w15 = SizedBox(width: 15.0);

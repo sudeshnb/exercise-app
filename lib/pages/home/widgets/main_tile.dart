@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,10 @@ class MainExerciseTile extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(
-          left: 10,
-          right: 30.0,
-          bottom: 20.0,
+        margin: EdgeInsets.only(
+          left: 1.5 * SizeConfig.height!,
+          right: 3 * SizeConfig.height!,
+          bottom: 2.5 * SizeConfig.height!,
         ),
         decoration: BoxDecoration(
           color: white,
@@ -37,8 +38,8 @@ class MainExerciseTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 200.0,
-              width: 250.0,
+              height: 25 * SizeConfig.height!,
+              width: 32 * SizeConfig.height!,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10.0),
@@ -55,9 +56,9 @@ class MainExerciseTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 level.title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: black,
-                  fontSize: 19.0,
+                  fontSize: 2.3 * SizeConfig.text!,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -67,9 +68,9 @@ class MainExerciseTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 "${level.time} min - ${level.kcal} kcal",
-                style: const TextStyle(
+                style: TextStyle(
                   color: grey,
-                  fontSize: 15.0,
+                  fontSize: 1.85 * SizeConfig.text!,
                   fontWeight: FontWeight.w600,
                 ),
               ),

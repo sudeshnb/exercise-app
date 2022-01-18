@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/material.dart';
 
 class CustomCircleButton extends StatelessWidget {
@@ -13,11 +14,15 @@ class CustomCircleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 45.0,
-        width: 45.0,
-        margin: const EdgeInsets.only(top: 5.0, left: 10.0, bottom: 10.0),
+        height: 5.5 * SizeConfig.height!,
+        width: 5.5 * SizeConfig.height!,
+        margin: EdgeInsets.only(
+          top: 0.8 * SizeConfig.height!,
+          left: 1.2 * SizeConfig.height!,
+          bottom: 1.2 * SizeConfig.height!,
+        ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(1.8 * SizeConfig.height!),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -29,7 +34,7 @@ class CustomCircleButton extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: EdgeInsets.all(1.2 * SizeConfig.height!),
           child: Image.asset(
             'assets/icons/$imagePath',
             color: darkBlue,

@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,11 @@ class WarningDialogBox extends StatelessWidget {
     return Dialog(
       backgroundColor: white,
       elevation: 10,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30),
+          Radius.circular(
+            3 * SizeConfig.height!,
+          ),
         ),
       ),
       child: Padding(
@@ -33,7 +36,7 @@ class WarningDialogBox extends StatelessWidget {
                 Image.asset(
                   'assets/icons/warning_shield.png',
                   color: Colors.orange.withOpacity(0.7),
-                  height: 30.0,
+                  height: 3 * SizeConfig.height!,
                 ),
                 w10,
                 Text(
@@ -41,7 +44,7 @@ class WarningDialogBox extends StatelessWidget {
                   style: TextStyle(
                     color: black.withOpacity(0.6),
                     letterSpacing: 0.7,
-                    fontSize: 20,
+                    fontSize: 2.5 * SizeConfig.text!,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

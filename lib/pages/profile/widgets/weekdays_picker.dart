@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,13 +32,13 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
     return Dialog(
       backgroundColor: Colors.white,
       elevation: 10,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(2.5 * SizeConfig.height!),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +48,7 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
               style: TextStyle(
                 color: black.withOpacity(0.6),
                 letterSpacing: 0.7,
-                fontSize: 20,
+                fontSize: 2.5 * SizeConfig.text!,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -62,7 +63,8 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
               ),
             ),
             h20,
-            Expanded(
+            SizedBox(
+              height: 50 * SizeConfig.height!,
               child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: items.map((item) {
@@ -70,7 +72,14 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
                     return CheckboxListTile(
                       activeColor: blue,
                       checkColor: white,
-                      title: Text(item),
+                      title: Text(
+                        item,
+                        style: TextStyle(
+                          color: black.withOpacity(0.6),
+                          letterSpacing: 0.7,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       value: isSelected,
                       onChanged: (bool? value) {
                         setState(() {

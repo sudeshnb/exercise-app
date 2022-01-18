@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/pages/home/widgets/workout_timer.dart';
@@ -82,7 +83,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
           widget.level.title,
           style: TextStyle(
             color: black.withOpacity(0.7),
-            fontSize: 20.0,
+            fontSize: 2.5 * SizeConfig.text!,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -120,11 +121,11 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                 children: [
                   h30,
                   Text(
-                    widget.level.exercise[position].name,
-                    style: const TextStyle(
-                      color: black,
+                    widget.level.exercise[position].getName,
+                    style: TextStyle(
+                      color: darkBlue,
                       fontWeight: FontWeight.bold,
-                      fontSize: 26.0,
+                      fontSize: 3 * SizeConfig.text!,
                       letterSpacing: 0.7,
                     ),
                   ),
@@ -133,11 +134,11 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                     position < 9 && widget.level.exercise.length < 9
                         ? '0${position + 1} of 0${widget.level.exercise.length}'
                         : '${position + 1} of ${widget.level.exercise.length}',
-                    style: const TextStyle(
-                      color: grey,
+                    style: TextStyle(
+                      color: darkBlue.withOpacity(0.6),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.7,
-                      fontSize: 24.0,
+                      fontSize: 3.5 * SizeConfig.text!,
                     ),
                   ),
                   h20,
@@ -152,7 +153,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                         ),
                         Container(
                           color: isPause == true || count != 0
-                              ? black.withOpacity(0.2)
+                              ? white.withOpacity(0.5)
                               : Colors.transparent,
                         )
                       ],
@@ -162,14 +163,14 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
               ),
               isPlay
                   ? count == 4
-                      ? const Center(
+                      ? Center(
                           child: Text(
                             'Get Ready',
                             style: TextStyle(
                               color: red,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.7,
-                              fontSize: 50.0,
+                              fontSize: 8 * SizeConfig.text!,
                             ),
                           ),
                         )
@@ -178,24 +179,24 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                           : Center(
                               child: Text(
                                 count.toString(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: blue,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 0.7,
-                                  fontSize: 50.0,
+                                  fontSize: 8 * SizeConfig.text!,
                                 ),
                               ),
                             )
                   : const SizedBox(),
               isPause
-                  ? const Center(
+                  ? Center(
                       child: Text(
                         'Pause',
                         style: TextStyle(
                           color: red,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.7,
-                          fontSize: 50.0,
+                          fontSize: 8 * SizeConfig.text!,
                         ),
                       ),
                     )
@@ -209,7 +210,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
         elevation: 0,
         child: Container(
           color: white,
-          height: 180,
+          height: 25 * SizeConfig.height!,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -255,8 +256,8 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                 },
                 child: isPlay
                     ? Container(
-                        height: 160.0,
-                        width: 160.0,
+                        height: 19 * SizeConfig.height!,
+                        width: 19 * SizeConfig.height!,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -268,12 +269,13 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                           color: white,
                           shape: BoxShape.circle,
                         ),
-                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 1 * SizeConfig.height!),
                         child: workOutStart
                             ? CustomWorkOutTimer(
                                 child: SizedBox(
-                                  height: 70.0,
-                                  width: 80.0,
+                                  height: 10 * SizeConfig.height!,
+                                  width: 10 * SizeConfig.height!,
                                   //This is a small circle
                                   child: smallcircletimer(),
                                 ),
@@ -298,8 +300,8 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                             : CustomTimer(
                                 duration: const Duration(seconds: 5),
                                 child: SizedBox(
-                                  height: 70.0,
-                                  width: 80.0,
+                                  height: 10 * SizeConfig.height!,
+                                  width: 10 * SizeConfig.height!,
                                   //This is a small circle
                                   child: smallcircletimer(),
                                 ),
@@ -321,8 +323,8 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                               ),
                       )
                     : Container(
-                        height: 100.0,
-                        width: 100.0,
+                        height: 15 * SizeConfig.height!,
+                        width: 15 * SizeConfig.height!,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -332,7 +334,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                             )
                           ],
                           color: white,
-                          borderRadius: BorderRadius.circular(60.0),
+                          shape: BoxShape.circle,
                           border: Border.all(
                               color: blue.withOpacity(0.6), width: 1.2),
                         ),
@@ -341,7 +343,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                             'assets/icons/play.png',
                             scale: 0.5,
                             color: darkBlue,
-                            height: 60,
+                            height: 8 * SizeConfig.height!,
                           ),
                         ),
                       ),
@@ -377,11 +379,11 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60.0,
-        width: 60.0,
+        height: 8 * SizeConfig.height!,
+        width: 8 * SizeConfig.height!,
         decoration: BoxDecoration(
           color: white,
-          borderRadius: BorderRadius.circular(60.0),
+          shape: BoxShape.circle,
           border: Border.all(color: blue.withOpacity(0.6), width: 1.2),
           boxShadow: [
             BoxShadow(
@@ -394,7 +396,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
         child: Image.asset(
           'assets/icons/$image.png',
           color: darkBlue,
-          height: 35,
+          height: 3 * SizeConfig.height!,
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
@@ -50,15 +51,15 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                 height: height,
                 width: double.infinity,
                 margin: EdgeInsets.only(top: height / 3.2),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20.0,
-                  horizontal: 20.0,
+                padding: EdgeInsets.symmetric(
+                  vertical: 2.5 * SizeConfig.height!,
+                  horizontal: 2.5 * SizeConfig.height!,
                 ),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
+                    topLeft: Radius.circular(4 * SizeConfig.height!),
+                    topRight: Radius.circular(4 * SizeConfig.height!),
                   ),
                 ),
                 child: Column(
@@ -68,7 +69,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                       widget.level.title,
                       style: TextStyle(
                         color: black.withOpacity(0.7),
-                        fontSize: 25.0,
+                        fontSize: 3 * SizeConfig.text!,
                         letterSpacing: 0.7,
                         fontWeight: FontWeight.w600,
                       ),
@@ -79,15 +80,15 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                       children: [
                         Image.asset(
                           'assets/icons/gas.png',
-                          height: 25,
+                          height: 2.8 * SizeConfig.height!,
                           color: orange,
                         ),
                         w10,
                         Text(
                           '${widget.level.kcal} Kcal',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: grey,
-                            fontSize: 16.0,
+                            fontSize: 2 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),
@@ -95,15 +96,15 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                         w20,
                         Image.asset(
                           'assets/icons/time.png',
-                          height: 25,
+                          height: 3 * SizeConfig.height!,
                           color: blue,
                         ),
                         w10,
                         Text(
                           '${widget.level.time} Min',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: grey,
-                            fontSize: 16.0,
+                            fontSize: 2 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),
@@ -115,7 +116,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                       'Rest between exercises',
                       style: TextStyle(
                         color: black.withOpacity(0.7),
-                        fontSize: 18.0,
+                        fontSize: 2.1 * SizeConfig.text!,
                         letterSpacing: 0.9,
                         fontWeight: FontWeight.w600,
                       ),
@@ -130,18 +131,18 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                               children: [
                                 Text(
                                   editSecond.toString(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: black,
-                                    fontSize: 40.0,
+                                    fontSize: 5 * SizeConfig.text!,
                                     letterSpacing: 0.9,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   'seconds',
                                   style: TextStyle(
                                     color: black,
-                                    fontSize: 17.0,
+                                    fontSize: 2 * SizeConfig.text!,
                                     letterSpacing: 0.9,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -187,7 +188,7 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                           color: black.withOpacity(0.7),
                           letterSpacing: 0.9,
                           fontWeight: FontWeight.bold,
-                          fontSize: 19.0,
+                          fontSize: 2.3 * SizeConfig.text!,
                         ),
                       ),
                     ),
@@ -210,41 +211,43 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
                               );
                             },
                             child: Container(
-                              height: 60.0,
+                              height: 7.5 * SizeConfig.height!,
                               color: white,
-                              margin: const EdgeInsets.only(bottom: 10.0),
+                              margin: EdgeInsets.only(
+                                  bottom: 1 * SizeConfig.height!),
                               child: Row(
                                 children: [
                                   Container(
-                                    height: 50.0,
-                                    width: 50.0,
+                                    height: 6 * SizeConfig.height!,
+                                    width: 6 * SizeConfig.height!,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(exer.imagePath),
                                         fit: BoxFit.cover,
                                       ),
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(
+                                          1 * SizeConfig.height!),
                                       color: grey,
                                     ),
                                   ),
                                   w10,
                                   Text(
                                     '${exer.time}s',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: grey,
                                       letterSpacing: 0.9,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 16.0,
+                                      fontSize: 1.9 * SizeConfig.text!,
                                     ),
                                   ),
                                   w30,
                                   Text(
-                                    exer.name,
+                                    exer.getName,
                                     style: TextStyle(
                                       color: black.withOpacity(0.7),
                                       letterSpacing: 0.9,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18.0,
+                                      fontSize: 2.2 * SizeConfig.text!,
                                     ),
                                   )
                                 ],
@@ -268,13 +271,13 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 30,
-        width: 30,
+        height: 3.5 * SizeConfig.height!,
+        width: 3.5 * SizeConfig.height!,
         child: Center(
           child: Image.asset(
             'assets/icons/$image',
             color: white,
-            height: 20,
+            height: 2 * SizeConfig.height!,
           ),
         ),
         decoration: BoxDecoration(

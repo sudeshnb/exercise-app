@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,13 @@ class AppDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: white,
       elevation: 10,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30),
+          Radius.circular(3 * SizeConfig.height!),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(2 * SizeConfig.height!),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           //  crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,7 @@ class AppDialog extends StatelessWidget {
               style: TextStyle(
                 color: black.withOpacity(0.6),
                 letterSpacing: 0.7,
-                fontSize: 20,
+                fontSize: 2.5 * SizeConfig.text!,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -61,7 +62,7 @@ class AppDialog extends StatelessWidget {
               },
               btnTxt: 'Cancel',
               fontColor: darkBlue,
-              color: blue.withOpacity(0.1),
+              color: red.withOpacity(0.7),
             ),
           ],
         ),

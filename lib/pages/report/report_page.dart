@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:flutter/material.dart';
 
@@ -16,24 +17,24 @@ class ReportsPage extends StatelessWidget {
           'Reports',
           style: TextStyle(
             color: black.withOpacity(0.7),
-            fontSize: 24.0,
+            fontSize: 2.9 * SizeConfig.text!,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15.0,
-          vertical: 20.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: 2 * SizeConfig.height!,
+          vertical: 3 * SizeConfig.height!,
         ),
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(10.0),
-              height: 170.0,
+              padding: EdgeInsets.all(1.5 * SizeConfig.height!),
+              height: 23 * SizeConfig.height!,
               decoration: BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(1 * SizeConfig.height!),
                 boxShadow: [
                   BoxShadow(
                     color: blueShadow.withOpacity(0.5),
@@ -51,7 +52,7 @@ class ReportsPage extends StatelessWidget {
                     style: TextStyle(
                       color: darkBlue.withOpacity(0.7),
                       letterSpacing: 1,
-                      fontSize: 20.0,
+                      fontSize: 2.5 * SizeConfig.text!,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -94,7 +95,7 @@ class ReportsPage extends StatelessWidget {
                   style: TextStyle(
                     color: black.withOpacity(0.7),
                     letterSpacing: 1,
-                    fontSize: 20.0,
+                    fontSize: 2.5 * SizeConfig.text!,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -124,7 +125,7 @@ class ReportsPage extends StatelessWidget {
                     text: '1 ',
                     style: TextStyle(
                       color: red.withOpacity(0.7),
-                      fontSize: 20.0,
+                      fontSize: 2.5 * SizeConfig.text!,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -132,7 +133,7 @@ class ReportsPage extends StatelessWidget {
                     text: ' Day in a row',
                     style: TextStyle(
                       color: black.withOpacity(0.7),
-                      fontSize: 20.0,
+                      fontSize: 2.5 * SizeConfig.text!,
                       letterSpacing: 1,
                       fontWeight: FontWeight.w600,
                     ),
@@ -154,12 +155,12 @@ class ReportsPage extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 20.0,
+          radius: 2.5 * SizeConfig.height!,
           backgroundColor: blue.withOpacity(0.3),
           child: Image.asset(
             'assets/icons/$imagePath.png',
             color: darkBlue,
-            height: 23.0,
+            height: 2.6 * SizeConfig.height!,
           ),
         ),
         h10,
@@ -168,7 +169,7 @@ class ReportsPage extends StatelessWidget {
           style: TextStyle(
             color: blue.withOpacity(0.9),
             letterSpacing: 1,
-            fontSize: 15.0,
+            fontSize: 1.9 * SizeConfig.text!,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -176,9 +177,9 @@ class ReportsPage extends StatelessWidget {
         Text(
           data,
           style: TextStyle(
-            color: black.withOpacity(0.7),
+            color: black.withOpacity(0.6),
             letterSpacing: 1,
-            fontSize: 18.0,
+            fontSize: 2.2 * SizeConfig.text!,
             fontWeight: FontWeight.w600,
           ),
         )

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:exercise_app/widgets/picker.dart';
@@ -9,7 +10,10 @@ import 'package:flutter/material.dart';
 
 class HeightPicker extends StatefulWidget {
   final Function(String) height;
-  const HeightPicker({Key? key, required this.height}) : super(key: key);
+  final String initialValue;
+  const HeightPicker(
+      {Key? key, required this.height, required this.initialValue})
+      : super(key: key);
 
   @override
   State<HeightPicker> createState() => _HeightPickerState();
@@ -17,18 +21,34 @@ class HeightPicker extends StatefulWidget {
 
 class _HeightPickerState extends State<HeightPicker> {
   double heightValue = 50.0;
+  bool isInitialValue = false;
+  late int fixedScoll;
+
+  @override
+  void initState() {
+    setState(() {
+      if (widget.initialValue.isNotEmpty) {
+        isInitialValue = true;
+        fixedScoll = double.parse(widget.initialValue).round() - 50;
+      } else {
+        isInitialValue = false;
+        fixedScoll = heightValue.round();
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
+          Radius.circular(4 * SizeConfig.height!),
         ),
       ),
       child: CustomPicker(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(2.5 * SizeConfig.height!),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -36,7 +56,7 @@ class _HeightPickerState extends State<HeightPicker> {
                 'Height',
                 style: TextStyle(
                   color: black.withOpacity(0.7),
-                  fontSize: 20.0,
+                  fontSize: 2.5 * SizeConfig.text!,
                   letterSpacing: 0.7,
                   fontWeight: FontWeight.w600,
                 ),
@@ -53,15 +73,17 @@ class _HeightPickerState extends State<HeightPicker> {
               ),
               h20,
               SizedBox(
-                height: 100.0,
-                width: 220.0,
+                height: 10 * SizeConfig.height!,
+                width: 28 * SizeConfig.height!,
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 100.0,
+                      width: 12 * SizeConfig.height!,
                       child: CupertinoPicker.builder(
                         childCount: 500,
-                        itemExtent: 50,
+                        scrollController: FixedExtentScrollController(
+                            initialItem: fixedScoll),
+                        itemExtent: 6 * SizeConfig.height!,
                         selectionOverlay: Container(
                           decoration: const BoxDecoration(
                             border: Border(
@@ -74,13 +96,15 @@ class _HeightPickerState extends State<HeightPicker> {
                           setState(() => heightValue = 50.0 + value);
                         },
                         itemBuilder: (itemBuilder, index) {
-                          return Text(
-                            '${index + 50}',
-                            style: TextStyle(
-                              color: black.withOpacity(0.7),
-                              fontSize: 20.0,
-                              letterSpacing: 0.7,
-                              fontWeight: FontWeight.w600,
+                          return Center(
+                            child: Text(
+                              '${index + 50}',
+                              style: TextStyle(
+                                color: black.withOpacity(0.7),
+                                fontSize: 2.5 * SizeConfig.text!,
+                                letterSpacing: 0.7,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           );
                         },
@@ -88,8 +112,8 @@ class _HeightPickerState extends State<HeightPicker> {
                     ),
                     w20,
                     Container(
-                      width: 100.0,
-                      height: 50,
+                      width: 12 * SizeConfig.height!,
+                      height: 6 * SizeConfig.height!,
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(color: blue, width: 1),
@@ -101,7 +125,7 @@ class _HeightPickerState extends State<HeightPicker> {
                           'cm',
                           style: TextStyle(
                             color: black.withOpacity(0.7),
-                            fontSize: 20.0,
+                            fontSize: 2.5 * SizeConfig.text!,
                             letterSpacing: 0.7,
                             fontWeight: FontWeight.w600,
                           ),
@@ -114,6 +138,10 @@ class _HeightPickerState extends State<HeightPicker> {
               h30,
               DialogBoxButton(
                 onTap: () {
+                  //  if (isInitialValue) {
+                  //   setState(() => heightValue = 50.0 + fixedScoll);
+                  //   widget.height(heightValue.toString());
+                  // }
                   widget.height(heightValue.toString());
                   Navigator.pop(context);
                 },
