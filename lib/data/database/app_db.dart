@@ -68,6 +68,18 @@ class ExerciseDatabase {
     return result.map((json) => RepateArlam.fromJson(json)).toList();
   }
 
+  Future<void> updateWeekAlarm(RepateArlam value) async {
+    final db = database;
+    await db.update(
+      'week',
+
+      {'week': value},
+      // user.toMap(),
+      where: 'weekID = ?',
+      whereArgs: [value.weekID],
+    );
+  }
+
   Future<User> user() async {
     final db = database;
 
@@ -137,5 +149,14 @@ class ExerciseDatabase {
   Future close() async {
     final db = database;
     db.close();
+  }
+
+  Future<int> deleteRepeat(String id) async {
+    final db = database;
+    return await db.delete(
+      'week',
+      where: 'weekID = ?',
+      whereArgs: [id],
+    );
   }
 }

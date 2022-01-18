@@ -46,8 +46,8 @@ class CompletePage extends StatelessWidget {
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(4 * SizeConfig.height!),
-                topRight: Radius.circular(4 * SizeConfig.height!),
+                topLeft: Radius.circular(5 * SizeConfig.height!),
+                topRight: Radius.circular(5 * SizeConfig.height!),
               ),
             ),
             child: Column(
@@ -65,7 +65,7 @@ class CompletePage extends StatelessWidget {
                 ),
                 h10,
                 Image.asset('assets/icons/trophy.PNG',
-                    height: 25 * SizeConfig.height!),
+                    height: 23 * SizeConfig.height!),
                 h10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -73,7 +73,7 @@ class CompletePage extends StatelessWidget {
                     Column(
                       children: [
                         CircleAvatar(
-                          radius: 4 * SizeConfig.height!,
+                          radius: 3.5 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
                             level.kcal,
@@ -97,11 +97,11 @@ class CompletePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // w30,
+                    w30,
                     Column(
                       children: [
                         CircleAvatar(
-                          radius: 4 * SizeConfig.height!,
+                          radius: 3.5 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
                             level.time,

@@ -71,9 +71,9 @@ class _RemindersPageState extends State<RemindersPage> {
 
                   return Container(
                     margin: EdgeInsets.all(2.3 * SizeConfig.height!),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 3 * SizeConfig.width!,
-                        vertical: 1.5 * SizeConfig.height!),
+                    padding: EdgeInsets.only(
+                        left: 3 * SizeConfig.width!,
+                        top: 1.5 * SizeConfig.height!),
                     decoration: BoxDecoration(
                       color: white,
                       borderRadius:
@@ -136,7 +136,6 @@ class _RemindersPageState extends State<RemindersPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                // h10,
                                 SizedBox(
                                   height: 2 * SizeConfig.height!,
                                   width: 30 * SizeConfig.height!,
@@ -170,9 +169,11 @@ class _RemindersPageState extends State<RemindersPage> {
                                         }
                                       }),
                                 ),
+                                h5,
                               ],
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 GestureDetector(
                                   onTap: () async {
@@ -181,33 +182,54 @@ class _RemindersPageState extends State<RemindersPage> {
                                         builder: (context) {
                                           return WeekDaysPicker(
                                             callBack: (p0) {
-                                              setState(() {
-                                                repeat = p0;
-                                              });
+                                              setState(() {});
                                             },
+                                            isUpdate: true,
+                                            weekId: remind.weekID,
                                           );
                                         });
+                                    refreshNotes();
                                   },
-                                  child: Image.asset(
-                                    'assets/icons/edit.png',
-                                    scale: 1.2,
-                                    //height: 2.5 * SizeConfig.height!,
-                                    color: darkBlue.withOpacity(0.8),
+                                  child: Container(
+                                    height: 5.3 * SizeConfig.height!,
+                                    width: 6 * SizeConfig.height!,
+                                    decoration: BoxDecoration(
+                                      color: blue.withOpacity(0.1),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        'assets/icons/edit.png',
+                                        scale: 1.2,
+                                        //height: 2.5 * SizeConfig.height!,
+                                        color: darkBlue.withOpacity(0.8),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                w20,
                                 GestureDetector(
                                   onTap: () async {
                                     await ExerciseDatabase.instance
                                         .delete(remind.id!);
                                     refreshNotes();
-                                    // setState(() => alarm.remove(alarms));
                                   },
-                                  child: Image.asset(
-                                    'assets/icons/delete.png',
-                                    scale: 1.8,
-                                    // height: 3 * SizeConfig.height!,
-                                    // color: red.withOpacity(0.9),
+                                  child: Container(
+                                    height: 5.3 * SizeConfig.height!,
+                                    width: 6 * SizeConfig.height!,
+                                    decoration: BoxDecoration(
+                                      color: red.withOpacity(0.1),
+                                      borderRadius: const BorderRadius.only(
+                                        bottomRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        'assets/icons/delete.png',
+                                        scale: 1.8,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -249,11 +271,19 @@ class _RemindersPageState extends State<RemindersPage> {
             context: context,
             initialTime: TimeOfDay.now(),
           );
+
           if (selectedTime != null) {
             final now = DateTime.now();
             var selectedDateTime = DateTime(now.year, now.month, now.day,
                 selectedTime.hour, selectedTime.minute);
-
+            var weekID = now.toIso8601String();
+            //  setState(() {
+            alarmTime = selectedDateTime;
+            // addAlarm(alarmTime);
+            var insertArlam =
+                Alarm(isOn: true, remindTime: alarmTime, weekID: weekID);
+            scheduleNotification(alarmTime, 0);
+            ExerciseDatabase.instance.insertArlam(insertArlam);
             await showDialog(
                 context: context,
                 builder: (context) {
@@ -263,25 +293,17 @@ class _RemindersPageState extends State<RemindersPage> {
                         repeat = p0;
                       });
                     },
+                    weekId: weekID,
                   );
                 });
-            //  setState(() {
-            alarmTime = selectedDateTime;
-            // addAlarm(alarmTime);
-            var insertArlam = Alarm(
-                isOn: true,
-                remindTime: alarmTime,
-                weekID: now.toIso8601String());
             for (int i = 0; i < repeat.length; i++) {
               var insertRepeat = RepateArlam(
                 week: repeat[i],
-                weekID: now.toIso8601String(),
+                weekID: weekID,
               );
               ExerciseDatabase.instance.insertRepeat(insertRepeat);
             }
 
-            scheduleNotification(alarmTime, 0);
-            ExerciseDatabase.instance.insertArlam(insertArlam);
             refreshNotes();
             //  });
           }

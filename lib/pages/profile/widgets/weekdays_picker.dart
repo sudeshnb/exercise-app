@@ -1,6 +1,8 @@
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
+import 'package:exercise_app/data/database/app_db.dart';
+import 'package:exercise_app/data/model/alarm.dart';
 import 'package:exercise_app/widgets/dialog_box_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,11 @@ import 'package:flutter/rendering.dart';
 
 class WeekDaysPicker extends StatefulWidget {
   final Function(List) callBack;
-  const WeekDaysPicker({Key? key, required this.callBack}) : super(key: key);
+  final String weekId;
+  final bool? isUpdate;
+  const WeekDaysPicker(
+      {Key? key, this.isUpdate, required this.callBack, required this.weekId})
+      : super(key: key);
 
   @override
   State<WeekDaysPicker> createState() => _WeekDaysPickerState();
@@ -26,6 +32,22 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
   ];
 
   List selectedItems = [];
+  List getSelect = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    getSelect = await ExerciseDatabase.instance.readArlam(widget.weekId);
+    if (mounted) {}
+    for (int k = 0; k < getSelect.length; k++) {
+      setState(() {
+        selectedItems.add(getSelect[k].week);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,37 +88,50 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
             SizedBox(
               height: 50 * SizeConfig.height!,
               child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: items.map((item) {
-                    bool isSelected = selectedItems.contains(item);
-                    return CheckboxListTile(
-                      activeColor: blue,
-                      checkColor: white,
-                      title: Text(
-                        item,
-                        style: TextStyle(
-                          color: black.withOpacity(0.6),
-                          letterSpacing: 0.7,
-                          fontWeight: FontWeight.w600,
-                        ),
+                physics: const BouncingScrollPhysics(),
+                children: items.map((item) {
+                  bool isSelected = selectedItems.contains(item);
+                  return CheckboxListTile(
+                    activeColor: blue,
+                    checkColor: white,
+                    title: Text(
+                      item,
+                      style: TextStyle(
+                        color: black.withOpacity(0.6),
+                        letterSpacing: 0.7,
+                        fontWeight: FontWeight.w600,
                       ),
-                      value: isSelected,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if (value == true) {
-                            selectedItems.add(item);
-                          } else {
-                            selectedItems.remove(item);
-                          }
-                        });
-                      },
-                    );
-                  }).toList()),
+                    ),
+                    value: isSelected,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        if (value == true) {
+                          selectedItems.add(item);
+                        } else {
+                          selectedItems.remove(item);
+                        }
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
             ),
             h30,
             DialogBoxButton(
               onTap: () {
-                widget.callBack(selectedItems);
+                if (widget.isUpdate != true) {
+                  widget.callBack(selectedItems);
+                } else {
+                  ExerciseDatabase.instance.deleteRepeat(widget.weekId);
+                  for (int i = 0; i < selectedItems.length; i++) {
+                    var insertRepeat = RepateArlam(
+                      week: selectedItems[i],
+                      weekID: widget.weekId,
+                    );
+                    ExerciseDatabase.instance.insertRepeat(insertRepeat);
+                  }
+                }
+
                 Navigator.pop(context);
               },
               btnTxt: 'Continue',
@@ -112,6 +147,24 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
           ],
         ),
       ),
+    );
+  }
+
+  CheckboxListTile customListtile(
+      String item, bool isSelected, Function(bool?) onChanged) {
+    return CheckboxListTile(
+      activeColor: blue,
+      checkColor: white,
+      title: Text(
+        item,
+        style: TextStyle(
+          color: black.withOpacity(0.6),
+          letterSpacing: 0.7,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      value: isSelected,
+      onChanged: onChanged,
     );
   }
 }
