@@ -4,6 +4,7 @@ import 'package:exercise_app/data/nav_button_data.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
 import 'package:exercise_app/pages/profile/profile_page.dart';
 import 'package:exercise_app/pages/report/report_page.dart';
+import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -19,17 +20,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: controller,
-        onPageChanged: (value) => setState(() {
-          selectBtn = value;
-        }),
-        itemCount: bottomMenu.length,
-        itemBuilder: (itemBuilder, index) {
-          return Container(
-            child: bottomMenu[index],
-          );
-        },
+      body: CustomPicker(
+        child: PageView.builder(
+          controller: controller,
+          onPageChanged: (value) => setState(() {
+            selectBtn = value;
+          }),
+          itemCount: bottomMenu.length,
+          itemBuilder: (itemBuilder, index) {
+            return Container(
+              child: bottomMenu[index],
+            );
+          },
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(

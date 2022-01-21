@@ -1,6 +1,7 @@
 library simple_timer;
 
 import 'dart:math' as math;
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CustomTimer extends StatefulWidget {
@@ -130,7 +131,9 @@ class TimerState extends State<CustomTimer>
                                       children: [
                                         widget.child ?? Container(),
                                         Text(
-                                          getProgressText(),
+                                          getProgressText() == '0'
+                                              ? '5'
+                                              : getProgressText(),
                                           style: getProgressTextStyle(),
                                         ),
                                       ],
@@ -319,6 +322,19 @@ class TimerPainter extends CustomPainter {
     paint.color = progressIndicatorColor;
     canvas.drawArc(rect, getStartAngle(), getProgressSweepAngle(),
         shouldUseCircleCenter(), paint);
+    double progress = animation.value * 2 * math.pi;
+    final offset = Offset(
+      center.dx + radius * cos(math.pi * 1.5 + progress),
+      center.dy + radius * sin(math.pi * 1.5 + progress),
+    );
+    canvas.drawCircle(
+      offset,
+      7,
+      Paint()
+        ..strokeWidth = 5
+        ..color = progressIndicatorColor
+        ..style = PaintingStyle.fill,
+    );
   }
 
   @override

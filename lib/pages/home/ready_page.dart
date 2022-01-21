@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
+import 'package:exercise_app/data/database/app_db.dart';
 import 'package:exercise_app/data/level_model.dart';
+import 'package:exercise_app/data/model/report.dart';
 import 'package:exercise_app/pages/home/widgets/workout_timer.dart';
 import 'package:exercise_app/pages/home/widgets/reset_timer.dart';
 import 'package:exercise_app/pages/home/widgets/total_timer.dart';
@@ -31,6 +33,10 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
   bool isPause = false;
   bool isDone = false;
   bool workOutStart = false;
+  bool isSkip = false;
+  bool isSecondRound = false;
+  int skipTotTime = 0;
+  double totCalerios = 0.0;
 
   void timecount() {
     const oneSec = Duration(seconds: 1);
@@ -113,6 +119,18 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
       body: PageView.builder(
         controller: controller,
         physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (value) {
+          if (isSkip) {
+            Duration wDurationValue =
+                workoutTimer.duration! * workoutTimer.value;
+            var workOutDuration = wDurationValue.inSeconds % 60;
+            skipTotTime = skipTotTime + workOutDuration;
+          } else {
+            skipTotTime = skipTotTime + 60;
+          }
+
+          totCalerios = (widget.level.skipKcal * skipTotTime);
+        },
         itemBuilder: (context, position) {
           selectIndex = position;
           return Stack(
@@ -248,6 +266,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                 onPressed: () {
                   setState(() {
                     count = 4;
+                    isSkip = false;
                     isPlay = true;
                     isPause = false;
                   });
@@ -295,7 +314,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                                         .singleCount,
                                 progressTextStyle:
                                     const TextStyle(color: blue, fontSize: 45),
-                                strokeWidth: 5,
+                                strokeWidth: 8,
                               )
                             : CustomTimer(
                                 duration: const Duration(seconds: 5),
@@ -319,7 +338,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                                   color: Colors.black,
                                   fontSize: 50,
                                 ),
-                                strokeWidth: 5,
+                                strokeWidth: 8,
                               ),
                       )
                     : Container(
@@ -351,7 +370,6 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
               controlBtn(
                 image: 'fast_forward',
                 onTap: () {
-                  //TODO: save data to database
                   skipButton();
                   setState(() {
                     controller.jumpToPage(selectIndex + 1);
@@ -360,6 +378,15 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                     isPause = false;
                   });
                   if (selectIndex == widget.level.exercise.length - 1) {
+                    var now = DateTime.now();
+                    var data = Reports(
+                        kcal: totCalerios.toStringAsFixed(1),
+                        duration: skipTotTime.toString(),
+                        workouts: widget.level.exercise.length.toString(),
+                        name: widget.level.title,
+                        time: now,
+                        history: '${now.year}${now.month}${now.day}');
+                    ExerciseDatabase.instance.insertReport(data);
                     Navigator.of(context).pushNamed(
                       '/CompletePage',
                       arguments: widget.level,
@@ -438,8 +465,6 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
     timerStarter();
   }
 
-  bool isSecondRound = false;
-
   void timerStarter() {
     totalTimer.start();
     if (isSecondRound) {
@@ -453,6 +478,15 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
     restTimer.stop();
     totalTimer.stop();
     workoutTimer.stop();
+    var now = DateTime.now();
+    var data = Reports(
+        kcal: totCalerios.toStringAsFixed(1),
+        duration: skipTotTime.toString(),
+        workouts: widget.level.exercise.length.toString(),
+        name: widget.level.title,
+        time: now,
+        history: '${now.year}${now.month}${now.day}');
+    ExerciseDatabase.instance.insertReport(data);
     Navigator.of(context).pushNamed(
       '/CompletePage',
       arguments: widget.level,
@@ -460,7 +494,18 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
   }
 
   void skipButton() {
+    Duration wDurationValue = workoutTimer.duration! * workoutTimer.value;
+    var workOutDuration = wDurationValue.inSeconds % 60;
+
+    // var fullTimerValue = totalTimer.duration! * totalTimer.value;
+    // var fullDuration = fullTimerValue.inSeconds % 60;
+    // duration = Duration(
+    //     seconds: workoutTimer.duration!.inSeconds - duration.inSeconds);
+    skipTotTime = skipTotTime + workOutDuration;
+    totCalerios = (widget.level.skipKcal * skipTotTime);
+
     setState(() {
+      isSkip = true;
       restTimer.stop();
       workoutTimer.stop();
       workoutTimer.reset();

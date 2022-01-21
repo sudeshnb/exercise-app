@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
@@ -130,7 +128,7 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
                 }
 
                 for (int i = 0; i < selectedItems.length; i++) {
-                  var insertRepeat = RepateArlam(
+                  var insertRepeat = RepateAlarm(
                     setOrder: getOrderIndex[i],
                     week: selectedItems[i],
                     weekID: widget.weekId,

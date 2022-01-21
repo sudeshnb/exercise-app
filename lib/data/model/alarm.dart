@@ -27,13 +27,13 @@ class Alarm {
       );
 }
 
-class RepateArlam {
+class RepateAlarm {
   final int? id;
   final String weekID;
   final int setOrder;
   final String week;
 
-  const RepateArlam(
+  const RepateAlarm(
       {this.id,
       required this.setOrder,
       required this.weekID,
@@ -48,7 +48,7 @@ class RepateArlam {
     };
   }
 
-  static RepateArlam fromJson(Map<String, Object?> json) => RepateArlam(
+  static RepateAlarm fromJson(Map<String, Object?> json) => RepateAlarm(
         id: json['_id'] as int,
         setOrder: json['setOrder'] as int,
         week: json['week'] as String,

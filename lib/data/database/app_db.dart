@@ -1,3 +1,4 @@
+import 'package:exercise_app/data/model/report.dart';
 import 'package:exercise_app/data/model/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,6 +33,9 @@ class ExerciseDatabase {
         'CREATE TABLE week (_id $idType, week $textType, weekID $textType, setOrder $intType)');
     await db.execute(
         'CREATE TABLE user (_id INTEGER PRIMARY KEY, name $textType, gender $textType, weight $textType, height $textType, bmi $textType, birth $textType)');
+
+    await db.execute(
+        'CREATE TABLE report (_id $idType, workouts $textType, kcal $textType, duration $textType, history $textType, name $textType,  time $textType)');
   }
 
   Future<void> insertArlam(Alarm remind) async {
@@ -39,12 +43,17 @@ class ExerciseDatabase {
     await db.insert('arlam', remind.toMap());
   }
 
-  Future<void> insertRepeat(RepateArlam arlam) async {
+  Future<void> insertRepeat(RepateAlarm alarm) async {
     final db = database;
-    await db.insert('week', arlam.toMap());
+    await db.insert('week', alarm.toMap());
   }
 
-  Future<List<RepateArlam>> readArlam(String id) async {
+  Future<void> insertReport(Reports reports) async {
+    final db = database;
+    await db.insert('report', reports.toMap());
+  }
+
+  Future<List<RepateAlarm>> readArlam(String id) async {
     final db = database;
 
     final result = await db.query(
@@ -53,10 +62,30 @@ class ExerciseDatabase {
       where: 'weekID = ?',
       whereArgs: [id],
     );
-    return result.map((json) => RepateArlam.fromJson(json)).toList();
+    return result.map((json) => RepateAlarm.fromJson(json)).toList();
   }
 
-  Future<void> updateWeekAlarm(RepateArlam value) async {
+  Future<List<Reports>> showHistory(String id) async {
+    final db = database;
+
+    final result = await db.query(
+      'report',
+      columns: [
+        '_id',
+        'workouts',
+        'history',
+        'kcal',
+        'name',
+        'duration',
+        'time'
+      ],
+      where: 'history = ?',
+      whereArgs: [id],
+    );
+    return result.map((json) => Reports.fromJson(json)).toList();
+  }
+
+  Future<void> updateWeekAlarm(RepateAlarm value) async {
     final db = database;
     await db.update(
       'week',
@@ -110,13 +139,19 @@ class ExerciseDatabase {
     return result.map((json) => Alarm.fromJson(json)).toList();
   }
 
-  Future<void> update(Alarm arlam) async {
+  Future<List<Reports>> showReports() async {
+    final db = database;
+    final result = await db.query('report');
+    return result.map((json) => Reports.fromJson(json)).toList();
+  }
+
+  Future<void> update(Alarm alarm) async {
     final db = database;
     await db.update(
       'arlam',
-      arlam.toMap(),
+      alarm.toMap(),
       where: '_id = ?',
-      whereArgs: [arlam.id],
+      whereArgs: [alarm.id],
     );
   }
 

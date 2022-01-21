@@ -1,10 +1,49 @@
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
+import 'package:exercise_app/data/database/app_db.dart';
+import 'package:exercise_app/data/model/report.dart';
 import 'package:flutter/material.dart';
 
-class ReportsPage extends StatelessWidget {
+class ReportsPage extends StatefulWidget {
   const ReportsPage({Key? key}) : super(key: key);
+
+  @override
+  State<ReportsPage> createState() => _ReportsPageState();
+}
+
+class _ReportsPageState extends State<ReportsPage> {
+  List<Reports> reports = [];
+  List<Reports> history = [];
+  int totWorkout = 0;
+  double totKacl = 0.0, totTime = 0.0;
+  bool isLoading = false;
+  @override
+  void initState() {
+    showData();
+    super.initState();
+  }
+
+  Future showData() async {
+    setState(() => isLoading = true);
+    reports = await ExerciseDatabase.instance.showReports();
+    // history = await ExerciseDatabase.instance.showHistory('2022121');
+    setState(() => isLoading = false);
+    calculateData();
+    if (mounted) setState(() {});
+  }
+
+  void calculateData() async {
+    for (int i = 0; i < reports.length; i++) {
+      totWorkout = totWorkout + int.parse(reports[i].workouts);
+      totKacl = totKacl + double.parse(reports[i].kcal);
+      totTime = totTime + double.parse(reports[i].duration);
+      var date =
+          '${reports[i].time.year}${reports[i].time.month}${reports[i].time.day}';
+
+      history = await ExerciseDatabase.instance.showHistory(date);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,19 +106,19 @@ class ReportsPage extends StatelessWidget {
                       reportTotalData(
                         name: 'Workouts',
                         imagePath: 'workout',
-                        data: '12',
+                        data: totWorkout.toString(),
                       ),
                       w40,
                       reportTotalData(
                         name: 'Kcal',
                         imagePath: 'gas',
-                        data: '30 kcal',
+                        data: totKacl.toStringAsFixed(0),
                       ),
                       w40,
                       reportTotalData(
                         name: 'Duraton',
                         imagePath: 'time',
-                        data: '50',
+                        data: totTime.toStringAsFixed(0),
                       ),
                     ],
                   ),
@@ -191,6 +230,7 @@ class ReportsPage extends StatelessWidget {
     var now = DateTime.now();
     var day = now.subtract(Duration(days: index));
     var dayName = _getWeekName(day);
+    if (reports.length < index) {}
     return Column(
       children: [
         Text(dayName),
@@ -199,7 +239,12 @@ class ReportsPage extends StatelessWidget {
           height: 40.0,
           width: 40.0,
           decoration: BoxDecoration(
-            color: now.day != day.day ? white : blueShadow,
+            color: reports.isNotEmpty
+                ? reports[reports.length - 1].time.day != day.day
+                    ? white
+                    : blueShadow
+                : white,
+            // now.day != day.day ? white : blueShadow,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -211,8 +256,23 @@ class ReportsPage extends StatelessWidget {
             ],
           ),
           child: Center(
-            child: now.day != day.day
-                ? Text(
+            child: reports.isNotEmpty
+                ? reports[0].time.day != day.day
+                    ? Text(
+                        day.day.toString(),
+                        style: TextStyle(
+                          color: black.withOpacity(0.7),
+                          fontSize: 18.0,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    : Image.asset(
+                        'assets/icons/done.png',
+                        color: white,
+                        height: 20.0,
+                      )
+                : Text(
                     day.day.toString(),
                     style: TextStyle(
                       color: black.withOpacity(0.7),
@@ -220,11 +280,6 @@ class ReportsPage extends StatelessWidget {
                       letterSpacing: 1,
                       fontWeight: FontWeight.w600,
                     ),
-                  )
-                : Image.asset(
-                    'assets/icons/done.png',
-                    color: white,
-                    height: 20.0,
                   ),
           ),
         )

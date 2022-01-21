@@ -11,6 +11,7 @@ class Levels {
   final String title;
   final List exercise;
   final Duration duration;
+  final double skipKcal;
 
   Levels({
     required this.id,
@@ -19,6 +20,7 @@ class Levels {
     required this.kcal,
     required this.title,
     required this.exercise,
+    required this.skipKcal,
     required this.duration,
   });
 }
@@ -29,6 +31,7 @@ List<Levels> levels = [
     imagePath: 'assets/images/BeginnersPic.JPG',
     time: '15',
     kcal: '60',
+    skipKcal: 0.067,
     title: 'Exercise fo Beginners',
     exercise: beginnerExercises,
     duration: const Duration(minutes: 15),
@@ -38,6 +41,7 @@ List<Levels> levels = [
     imagePath: 'assets/images/IntermediatePic.JPG',
     time: '12',
     kcal: '60',
+    skipKcal: 0.083,
     title: 'Exercise for Intermediate',
     exercise: intermediateExercises,
     duration: const Duration(minutes: 12),
@@ -47,6 +51,7 @@ List<Levels> levels = [
     imagePath: 'assets/images/AdvanedPic.PNG',
     time: '12',
     kcal: '72',
+    skipKcal: 0.1,
     title: 'Exercise for Advanced',
     exercise: advancedExercises,
     duration: const Duration(minutes: 12),
@@ -56,6 +61,7 @@ List<Levels> levels = [
     imagePath: 'assets/images/lowImpactCardioWorkout.jpg',
     time: '15',
     kcal: '60',
+    skipKcal: 0.083,
     title: 'Low impact cardio workout',
     exercise: lowImpactCardioWorkout,
     duration: const Duration(minutes: 15),

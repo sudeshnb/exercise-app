@@ -5,7 +5,6 @@ import 'package:exercise_app/data/database/app_db.dart';
 import 'package:exercise_app/data/model/alarm.dart';
 import 'package:exercise_app/main.dart';
 import 'package:exercise_app/pages/profile/widgets/weekdays_picker.dart';
-import 'package:exercise_app/pages/report/history_calender.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
 import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,8 +22,8 @@ class RemindersPage extends StatefulWidget {
 
 class _RemindersPageState extends State<RemindersPage> {
   List<Alarm> arlams = [];
-  List repeat = [];
-  List<RepateArlam> weekShort = [];
+  // List repeat = [];
+  List<RepateAlarm> weekShort = [];
   late DateTime alarmTime;
   bool isLoading = false;
   @override
@@ -142,22 +141,22 @@ class _RemindersPageState extends State<RemindersPage> {
                                 SizedBox(
                                   height: 2 * SizeConfig.height!,
                                   width: 30 * SizeConfig.height!,
-                                  child: FutureBuilder<List<RepateArlam>>(
+                                  child: FutureBuilder<List<RepateAlarm>>(
                                       future: ExerciseDatabase.instance
                                           .readArlam(remind.weekID),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          var data = snapshot.data!;
+                                          weekShort = snapshot.data!;
                                           orderToWeekname();
-//  _scheduleNotification(remind.id!);
                                           return ListView.builder(
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: data.length,
+                                            itemCount: weekShort.length,
                                             itemBuilder: (context, index) {
-                                              var endItem = data.length - 1;
+                                              var endItem =
+                                                  weekShort.length - 1;
 
                                               return Text(
-                                                '${data[index].week.substring(0, 3)}${endItem == index ? '' : ','}',
+                                                '${weekShort[index].week.substring(0, 3)}${endItem == index ? '' : ','}',
                                                 style: TextStyle(
                                                   color:
                                                       darkBlue.withOpacity(0.7),
@@ -284,7 +283,7 @@ class _RemindersPageState extends State<RemindersPage> {
             // addAlarm(alarmTime);
             var insertArlam =
                 Alarm(isOn: true, remindTime: alarmTime, weekID: weekID);
-            scheduleNotification(alarmTime, 0);
+            //scheduleNotification(alarmTime, 0);
             ExerciseDatabase.instance.insertArlam(insertArlam);
             await showDialog(
                 context: context,
