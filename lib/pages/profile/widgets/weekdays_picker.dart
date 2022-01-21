@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
@@ -9,11 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class WeekDaysPicker extends StatefulWidget {
-  final Function(List) callBack;
   final String weekId;
   final bool? isUpdate;
-  const WeekDaysPicker(
-      {Key? key, this.isUpdate, required this.callBack, required this.weekId})
+  const WeekDaysPicker({Key? key, this.isUpdate, required this.weekId})
       : super(key: key);
 
   @override
@@ -27,12 +27,13 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
     'Tuesday',
     'Wednesday',
     'Thursday',
-    'Fridey',
+    'Friday',
     'Saturday'
   ];
 
   List selectedItems = [];
   List getSelect = [];
+  List getOrderIndex = [];
   @override
   void initState() {
     getData();
@@ -45,6 +46,7 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
     for (int k = 0; k < getSelect.length; k++) {
       setState(() {
         selectedItems.add(getSelect[k].week);
+        getOrderIndex.add(getSelect[k].setOrder);
       });
     }
   }
@@ -107,8 +109,12 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
                       setState(() {
                         if (value == true) {
                           selectedItems.add(item);
+                          getOrderIndex.add(items.indexOf(item));
+                          // print(items.indexOf(item));
+
                         } else {
                           selectedItems.remove(item);
+                          getOrderIndex.remove(items.indexOf(item));
                         }
                       });
                     },
@@ -119,19 +125,18 @@ class _WeekDaysPickerState extends State<WeekDaysPicker> {
             h30,
             DialogBoxButton(
               onTap: () {
-                if (widget.isUpdate != true) {
-                  widget.callBack(selectedItems);
-                } else {
+                if (widget.isUpdate == true) {
                   ExerciseDatabase.instance.deleteRepeat(widget.weekId);
-                  for (int i = 0; i < selectedItems.length; i++) {
-                    var insertRepeat = RepateArlam(
-                      week: selectedItems[i],
-                      weekID: widget.weekId,
-                    );
-                    ExerciseDatabase.instance.insertRepeat(insertRepeat);
-                  }
                 }
 
+                for (int i = 0; i < selectedItems.length; i++) {
+                  var insertRepeat = RepateArlam(
+                    setOrder: getOrderIndex[i],
+                    week: selectedItems[i],
+                    weekID: widget.weekId,
+                  );
+                  ExerciseDatabase.instance.insertRepeat(insertRepeat);
+                }
                 Navigator.pop(context);
               },
               btnTxt: 'Continue',

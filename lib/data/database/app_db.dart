@@ -24,11 +24,12 @@ class ExerciseDatabase {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const boolType = 'BOOLEAN NOT NULL';
+    const intType = 'INTEGER NOT NULL';
 
     await db.execute(
         'CREATE TABLE arlam (_id $idType, isOn $boolType, remindTime $textType, weekID $textType)');
     await db.execute(
-        'CREATE TABLE week (_id $idType, week $textType, weekID $textType)');
+        'CREATE TABLE week (_id $idType, week $textType, weekID $textType, setOrder $intType)');
     await db.execute(
         'CREATE TABLE user (_id INTEGER PRIMARY KEY, name $textType, gender $textType, weight $textType, height $textType, bmi $textType, birth $textType)');
   }
@@ -43,25 +44,12 @@ class ExerciseDatabase {
     await db.insert('week', arlam.toMap());
   }
 
-  // Future<void> insertUser() async {
-  //   final db = database;
-  //   const user = User(
-  //     id: 0,
-  //     name: '',
-  //     height: '',
-  //     weight: '',
-  //     gender: '',
-  //     bmi: '',
-  //   );
-  //   await db.insert('user', user.toMap());
-  // }
-
   Future<List<RepateArlam>> readArlam(String id) async {
     final db = database;
 
     final result = await db.query(
       'week',
-      columns: ['_id', 'week', 'weekID'],
+      columns: ['_id', 'week', 'weekID', 'setOrder'],
       where: 'weekID = ?',
       whereArgs: [id],
     );

@@ -5,12 +5,14 @@ import 'package:exercise_app/data/database/app_db.dart';
 import 'package:exercise_app/data/model/alarm.dart';
 import 'package:exercise_app/main.dart';
 import 'package:exercise_app/pages/profile/widgets/weekdays_picker.dart';
+import 'package:exercise_app/pages/report/history_calender.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
 import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class RemindersPage extends StatefulWidget {
   const RemindersPage({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class RemindersPage extends StatefulWidget {
 class _RemindersPageState extends State<RemindersPage> {
   List<Alarm> arlams = [];
   List repeat = [];
+  List<RepateArlam> weekShort = [];
   late DateTime alarmTime;
   bool isLoading = false;
   @override
@@ -145,12 +148,14 @@ class _RemindersPageState extends State<RemindersPage> {
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
                                           var data = snapshot.data!;
+                                          orderToWeekname();
+//  _scheduleNotification(remind.id!);
                                           return ListView.builder(
                                             scrollDirection: Axis.horizontal,
                                             itemCount: data.length,
-                                            // itemCount: repeat.length,
                                             itemBuilder: (context, index) {
                                               var endItem = data.length - 1;
+
                                               return Text(
                                                 '${data[index].week.substring(0, 3)}${endItem == index ? '' : ','}',
                                                 style: TextStyle(
@@ -181,9 +186,6 @@ class _RemindersPageState extends State<RemindersPage> {
                                         context: context,
                                         builder: (context) {
                                           return WeekDaysPicker(
-                                            callBack: (p0) {
-                                              setState(() {});
-                                            },
                                             isUpdate: true,
                                             weekId: remind.weekID,
                                           );
@@ -288,24 +290,10 @@ class _RemindersPageState extends State<RemindersPage> {
                 context: context,
                 builder: (context) {
                   return WeekDaysPicker(
-                    callBack: (p0) {
-                      setState(() {
-                        repeat = p0;
-                      });
-                    },
                     weekId: weekID,
                   );
                 });
-            for (int i = 0; i < repeat.length; i++) {
-              var insertRepeat = RepateArlam(
-                week: repeat[i],
-                weekID: weekID,
-              );
-              ExerciseDatabase.instance.insertRepeat(insertRepeat);
-            }
-
             refreshNotes();
-            //  });
           }
         },
         child: const Icon(Icons.add),
@@ -348,4 +336,69 @@ class _RemindersPageState extends State<RemindersPage> {
       payload: 'Test Payload',
     );
   }
+
+  void orderToWeekname() {
+    weekShort.sort((a, b) => a.setOrder.compareTo(b.setOrder));
+  }
+}
+
+Future<void> _scheduleNotification(int id) async {
+  const androidChannel = AndroidNotificationDetails(
+    '0',
+    'reminder',
+    channelDescription: 'Exercise Reminder Notification',
+    icon: 'logo',
+    importance: Importance.max,
+    priority: Priority.high,
+    sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
+    largeIcon: DrawableResourceAndroidBitmap('logo'),
+  );
+  const channelSpecifics = NotificationDetails(android: androidChannel);
+  await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      'Hello',
+      'I\'ll Remind you about the planned workout',
+      _nextInstanceOfWeek(),
+      channelSpecifics,
+      payload: 'Test Payload',
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
+}
+
+// tz.TZDateTime _nextInstanceOfTime() {
+//   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+//   tz.TZDateTime scheduledDate =
+//       tz.TZDateTime(tz.local, now.year, now.month, now.day, 10);
+//   if (scheduledDate.isBefore(now)) {
+//     scheduledDate = scheduledDate.add(const Duration(days: 1));
+//   }
+//   return scheduledDate;
+// }
+
+// tz.TZDateTime _nextInstanceOfMondayTenAM() {
+//   tz.TZDateTime scheduledDate = _nextInstanceOfTime();
+//   while (scheduledDate.weekday != DateTime.monday) {
+//     scheduledDate = scheduledDate.add(const Duration(days: 1));
+//   }
+//   return scheduledDate;
+// }
+
+_nextInstanceOfTime(int hour, int min) {
+  final DateTime now = DateTime.now();
+  DateTime scheduledDate = DateTime(now.year, now.month, now.day, hour, min);
+  if (scheduledDate.isBefore(now)) {
+    scheduledDate = scheduledDate.add(const Duration(days: 1));
+  }
+  return scheduledDate;
+}
+
+tz.TZDateTime _nextInstanceOfWeek() {
+  tz.TZDateTime scheduledDate = _nextInstanceOfTime(5, 6);
+  while (scheduledDate.weekday != DateTime.monday) {
+    scheduledDate = scheduledDate.add(const Duration(days: 1));
+  }
+
+  return scheduledDate;
 }
