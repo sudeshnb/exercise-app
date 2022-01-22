@@ -66,6 +66,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
             timer.cancel();
           });
           workoutTimer.start();
+          totalTimer.start();
         }
       } else {
         setState(() => count--);
@@ -106,6 +107,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                   restTimer.pause();
                 });
               }
+
               Navigator.of(context).pushNamed(
                 '/ExerciseDetailsPage',
                 arguments: widget.level.exercise[selectIndex],
@@ -258,7 +260,9 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                   }
                 },
               ),
-              TextButton(
+              MaterialButton(
+                splashColor: white,
+                highlightColor: white,
                 onPressed: () {
                   setState(() {
                     count = 4;
