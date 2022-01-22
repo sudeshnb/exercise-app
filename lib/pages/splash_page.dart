@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,11 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 2), () {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/BottomNavBar', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/BottomNavBar',
+        (route) => false,
+        arguments: ScreenArguments(0, false),
+      );
     });
     super.initState();
   }

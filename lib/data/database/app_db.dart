@@ -1,3 +1,4 @@
+import 'package:exercise_app/data/model/event.dart';
 import 'package:exercise_app/data/model/report.dart';
 import 'package:exercise_app/data/model/user.dart';
 import 'package:path/path.dart';
@@ -35,7 +36,9 @@ class ExerciseDatabase {
         'CREATE TABLE user (_id INTEGER PRIMARY KEY, name $textType, gender $textType, weight $textType, height $textType, bmi $textType, birth $textType)');
 
     await db.execute(
-        'CREATE TABLE report (_id $idType, workouts $textType, kcal $textType, duration $textType, history $textType, name $textType,  time $textType)');
+        'CREATE TABLE report (_id $idType, eventKey $textType, workouts $textType, kcal $textType, duration $textType, time $textType)');
+    await db.execute(
+        'CREATE TABLE events (_id $idType, eventKey $textType, kcal $textType, duration $textType, title $textType,  time $textType)');
   }
 
   Future<void> insertArlam(Alarm remind) async {
@@ -53,6 +56,11 @@ class ExerciseDatabase {
     await db.insert('report', reports.toMap());
   }
 
+  Future<void> insertEvents(Event event) async {
+    final db = database;
+    await db.insert('events', event.toMap());
+  }
+
   Future<List<RepateAlarm>> readArlam(String id) async {
     final db = database;
 
@@ -65,21 +73,38 @@ class ExerciseDatabase {
     return result.map((json) => RepateAlarm.fromJson(json)).toList();
   }
 
+  Future<List<Event>> showEvents(String key) async {
+    final db = database;
+
+    final result = await db.query(
+      'events',
+      columns: ['_id', 'eventKey', 'kcal', 'duration', 'title', 'time'],
+      where: 'eventKey = ?',
+      whereArgs: [key],
+    );
+    return result.map((json) => Event.fromJson(json)).toList();
+  }
+
+  Future<List<Event>> showBetweenEvents(String strat, String end) async {
+    final db = database;
+
+    final result = await db.query(
+      'events',
+      columns: ['_id', 'eventKey', 'kcal', 'duration', 'title', 'time'],
+      where: 'eventKey BETWEEN  ? and ?',
+      whereArgs: [strat, end],
+    );
+    return result.map((json) => Event.fromJson(json)).toList();
+  }
+
+//WHERE column_4 BETWEEN 10 AND 20;
   Future<List<Reports>> showHistory(String id) async {
     final db = database;
 
     final result = await db.query(
       'report',
-      columns: [
-        '_id',
-        'workouts',
-        'history',
-        'kcal',
-        'name',
-        'duration',
-        'time'
-      ],
-      where: 'history = ?',
+      columns: ['_id', 'workouts', 'eventKey', 'kcal', 'duration', 'time'],
+      where: 'eventKey = ?',
       whereArgs: [id],
     );
     return result.map((json) => Reports.fromJson(json)).toList();
@@ -164,9 +189,19 @@ class ExerciseDatabase {
     );
   }
 
-  Future<int> deleteAll() async {
+  Future<int> deleteUserData() async {
     final db = database;
+
     return await db.delete('user');
+  }
+
+  restAllData() async {
+    final db = database;
+    await db.delete('week');
+    await db.delete('events');
+    await db.delete('report');
+    await db.delete('arlam');
+    await db.delete('user');
   }
 
   Future close() async {
@@ -179,6 +214,15 @@ class ExerciseDatabase {
     return await db.delete(
       'week',
       where: 'weekID = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteEvents(int id) async {
+    final db = database;
+    return await db.delete(
+      'events',
+      where: '_id = ?',
       whereArgs: [id],
     );
   }

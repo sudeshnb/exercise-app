@@ -4,8 +4,7 @@ class Reports {
   final String kcal;
   final String duration;
   final DateTime time;
-  final String history;
-  final String? name;
+  final String eventKey;
 
   const Reports({
     this.id,
@@ -13,8 +12,7 @@ class Reports {
     required this.kcal,
     required this.duration,
     required this.time,
-    required this.history,
-    this.name,
+    required this.eventKey,
   });
 
   Map<String, dynamic> toMap() {
@@ -24,8 +22,7 @@ class Reports {
       'kcal': kcal,
       'duration': duration,
       'time': time.toIso8601String(),
-      'history': history,
-      'name': name,
+      'eventKey': eventKey,
     };
   }
 
@@ -35,7 +32,6 @@ class Reports {
         kcal: json['kcal'] as String,
         duration: json['duration'] as String,
         time: DateTime.parse(json['time'] as String),
-        history: json['history'] as String,
-        name: json['name'] as String,
+        eventKey: json['eventKey'] as String,
       );
 }

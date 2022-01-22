@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/database/app_db.dart';
 import 'package:exercise_app/data/level_model.dart';
+import 'package:exercise_app/data/model/event.dart';
 import 'package:exercise_app/data/model/report.dart';
 import 'package:exercise_app/pages/home/widgets/workout_timer.dart';
 import 'package:exercise_app/pages/home/widgets/reset_timer.dart';
@@ -120,16 +122,10 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
         controller: controller,
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) {
-          if (isSkip) {
-            Duration wDurationValue =
-                workoutTimer.duration! * workoutTimer.value;
-            var workOutDuration = wDurationValue.inSeconds % 60;
-            skipTotTime = skipTotTime + workOutDuration;
-          } else {
+          if (!isSkip) {
             skipTotTime = skipTotTime + 60;
+            totCalerios = (widget.level.skipKcal * skipTotTime);
           }
-
-          totCalerios = (widget.level.skipKcal * skipTotTime);
         },
         itemBuilder: (context, position) {
           selectIndex = position;
@@ -370,7 +366,10 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
               controlBtn(
                 image: 'fast_forward',
                 onTap: () {
-                  skipButton();
+                  if (workoutTimer.duration != null) {
+                    skipButton();
+                  }
+
                   setState(() {
                     controller.jumpToPage(selectIndex + 1);
                     isPlay = false;
@@ -378,19 +377,7 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
                     isPause = false;
                   });
                   if (selectIndex == widget.level.exercise.length - 1) {
-                    var now = DateTime.now();
-                    var data = Reports(
-                        kcal: totCalerios.toStringAsFixed(1),
-                        duration: skipTotTime.toString(),
-                        workouts: widget.level.exercise.length.toString(),
-                        name: widget.level.title,
-                        time: now,
-                        history: '${now.year}${now.month}${now.day}');
-                    ExerciseDatabase.instance.insertReport(data);
-                    Navigator.of(context).pushNamed(
-                      '/CompletePage',
-                      arguments: widget.level,
-                    );
+                    saveDataTodatabase();
                   }
                 },
               ),
@@ -478,29 +465,13 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
     restTimer.stop();
     totalTimer.stop();
     workoutTimer.stop();
-    var now = DateTime.now();
-    var data = Reports(
-        kcal: totCalerios.toStringAsFixed(1),
-        duration: skipTotTime.toString(),
-        workouts: widget.level.exercise.length.toString(),
-        name: widget.level.title,
-        time: now,
-        history: '${now.year}${now.month}${now.day}');
-    ExerciseDatabase.instance.insertReport(data);
-    Navigator.of(context).pushNamed(
-      '/CompletePage',
-      arguments: widget.level,
-    );
+    saveDataTodatabase();
   }
 
   void skipButton() {
     Duration wDurationValue = workoutTimer.duration! * workoutTimer.value;
     var workOutDuration = wDurationValue.inSeconds % 60;
 
-    // var fullTimerValue = totalTimer.duration! * totalTimer.value;
-    // var fullDuration = fullTimerValue.inSeconds % 60;
-    // duration = Duration(
-    //     seconds: workoutTimer.duration!.inSeconds - duration.inSeconds);
     skipTotTime = skipTotTime + workOutDuration;
     totCalerios = (widget.level.skipKcal * skipTotTime);
 
@@ -524,11 +495,41 @@ class _ReadyPageState extends State<ReadyPage> with TickerProviderStateMixin {
       restTimer.stop();
       totalTimer.stop();
       workoutTimer.stop();
-      Navigator.of(context).pushNamed(
-        '/CompletePage',
-        arguments: widget.level,
-      );
+      if (!isSkip) {
+        // Duration wDurationValue =
+        //     workoutTimer.duration! * workoutTimer.value;
+        // var workOutDuration = wDurationValue.inSeconds % 60;
+        // skipTotTime = skipTotTime + workOutDuration;
+        skipTotTime = skipTotTime + 60;
+        totCalerios = (widget.level.skipKcal * skipTotTime);
+      }
+
+      saveDataTodatabase();
     }
+  }
+
+  void saveDataTodatabase() {
+    var now = DateTime.now();
+    var data = Reports(
+        kcal: totCalerios.toStringAsFixed(1),
+        duration: skipTotTime.toString(),
+        workouts: widget.level.exercise.length.toString(),
+        time: now,
+        eventKey: '${now.year}${now.month}${now.day}');
+    var event = Event(
+      eventKey: '${now.year}${now.month}${now.day}',
+      kcal: totCalerios.toStringAsFixed(1),
+      duration: skipTotTime.toString(),
+      title: widget.level.title,
+      dateTime: now,
+    );
+    ExerciseDatabase.instance.insertReport(data);
+    ExerciseDatabase.instance.insertEvents(event);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/CompletePage',
+      (route) => false,
+      arguments: CompletPageArguments(widget.level, event),
+    );
   }
 
   @override

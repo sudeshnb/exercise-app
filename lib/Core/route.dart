@@ -1,5 +1,6 @@
 import 'package:exercise_app/data/exercise_model.dart';
 import 'package:exercise_app/data/level_model.dart';
+import 'package:exercise_app/data/model/event.dart';
 import 'package:exercise_app/pages/home/complete_page.dart';
 import 'package:exercise_app/pages/home/exercise_details_page.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
@@ -7,6 +8,7 @@ import 'package:exercise_app/pages/home/ready_page.dart';
 import 'package:exercise_app/pages/home/view_all_exercise.dart';
 import 'package:exercise_app/pages/profile/reminders_page.dart';
 import 'package:exercise_app/pages/report/history_page.dart';
+import 'package:exercise_app/pages/report/report_page.dart';
 import 'package:exercise_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +17,15 @@ class RouteGenerator {
     final arguments = settings?.arguments;
     switch (settings?.name) {
       case '/BottomNavBar':
-        return createRoute(child: const BottomNavBar());
+        ScreenArguments item = arguments as ScreenArguments;
+
+        return createRoute(child: BottomNavBar(newArgu: item));
 
       case '/HomePage':
         return createRoute(child: const HomePage());
+
+      case '/ReportsPage':
+        return createRoute(child: const ReportsPage());
 
       case '/ViewAllExercisePage':
         Levels level = arguments as Levels;
@@ -43,10 +50,10 @@ class RouteGenerator {
         );
 
       case '/CompletePage':
-        Levels level = arguments as Levels;
+        CompletPageArguments level = arguments as CompletPageArguments;
         return createRoute(
           child: CompletePage(
-            level: level,
+            arg: level,
           ),
         );
 
@@ -92,4 +99,18 @@ Route createRoute({required Widget child}) {
       );
     },
   );
+}
+
+class ScreenArguments {
+  final int index;
+  final bool isJump;
+
+  ScreenArguments(this.index, this.isJump);
+}
+
+class CompletPageArguments {
+  final Levels levels;
+  final Event event;
+
+  CompletPageArguments(this.levels, this.event);
 }

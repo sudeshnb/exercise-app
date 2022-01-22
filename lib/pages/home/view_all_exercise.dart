@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
 import 'package:exercise_app/data/level_model.dart';
@@ -43,7 +44,10 @@ class _ViewAllExerciseState extends State<ViewAllExercise> {
               CustomCircleButton(
                 onTap: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/BottomNavBar', (route) => false);
+                    '/BottomNavBar',
+                    (route) => false,
+                    arguments: ScreenArguments(0, false),
+                  );
                 },
                 imagePath: 'back.png',
               ),

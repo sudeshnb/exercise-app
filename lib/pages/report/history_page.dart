@@ -1,3 +1,4 @@
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/pages/report/history_calender.dart';
 import 'package:exercise_app/Core/color.dart';
@@ -24,7 +25,11 @@ class _HistoryPageState extends State<HistoryPage> {
         centerTitle: true,
         leading: CustomCircleButton(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              '/BottomNavBar',
+              (route) => false,
+              arguments: ScreenArguments(1, true),
+            );
           },
           imagePath: 'back.png',
         ),

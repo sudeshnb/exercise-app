@@ -1,4 +1,5 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/data/nav_button_data.dart';
 import 'package:exercise_app/pages/home/home_page.dart';
@@ -8,7 +9,8 @@ import 'package:exercise_app/widgets/picker.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  final ScreenArguments newArgu;
+  const BottomNavBar({Key? key, required this.newArgu}) : super(key: key);
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -16,7 +18,18 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   PageController controller = PageController();
+
   int selectBtn = 0;
+  bool isJump = false;
+  @override
+  void initState() {
+    setState(() {
+      selectBtn = widget.newArgu.index;
+      isJump = widget.newArgu.isJump;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +42,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           itemCount: bottomMenu.length,
           itemBuilder: (itemBuilder, index) {
             return Container(
-              child: bottomMenu[index],
+              child: bottomMenu[isJump ? selectBtn : index],
             );
           },
         ),
@@ -55,6 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 InkWell(
                   onTap: () {
                     setState(() {
+                      isJump = false;
                       controller.jumpToPage(i);
                       selectBtn = i;
                     });

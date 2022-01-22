@@ -3,11 +3,13 @@ import 'package:exercise_app/Core/calender/table_calendar.dart';
 import 'package:exercise_app/Core/color.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
+import 'package:exercise_app/data/database/app_db.dart';
+import 'package:exercise_app/data/model/report.dart';
 import 'package:exercise_app/widgets/dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../data/calender_data.dart';
+import '../../data/model/event.dart';
 
 class HistoryCalender extends StatefulWidget {
   const HistoryCalender({Key? key}) : super(key: key);
@@ -15,6 +17,8 @@ class HistoryCalender extends StatefulWidget {
   @override
   _HistoryCalenderState createState() => _HistoryCalenderState();
 }
+
+var _kEventSource2 = <DateTime, List<Event>>{};
 
 class _HistoryCalenderState extends State<HistoryCalender> {
   final ValueNotifier<List<Event>> _selectedEvents = ValueNotifier([]);
@@ -29,6 +33,44 @@ class _HistoryCalenderState extends State<HistoryCalender> {
   DateTime _focusedDay = DateTime.now();
 //is used no data from weeks
   bool isDataHas = true;
+  List<Reports> history = [];
+  List<Event> events = [];
+  List<Event> weekEvents = [];
+  @override
+  void initState() {
+    showData();
+    super.initState();
+  }
+
+  Future showData() async {
+    history = await ExerciseDatabase.instance.showReports();
+
+    if (history.isNotEmpty) {
+      for (int i = 0; history.length > i; i++) {
+        var date = history[i].time;
+        events = await ExerciseDatabase.instance
+            .showEvents('${date.year}${date.month}${date.day}');
+        setState(() {
+          _kEventSource2[DateTime.utc(date.year, date.month, date.day)] = [
+            for (int k = 0; events.length > k; k++)
+              Event(
+                id: events[k].id,
+                eventKey: events[k].eventKey,
+                title: events[k].title,
+                duration: events[k].duration,
+                kcal: events[k].kcal,
+                dateTime: events[k].dateTime,
+              )
+          ];
+        });
+      }
+    }
+  }
+
+  Future getWeekData(strat, end) async {
+    weekEvents = await ExerciseDatabase.instance.showBetweenEvents(strat, end);
+  }
+
   @override
   void dispose() {
     _selectedEvents.dispose();
@@ -36,9 +78,8 @@ class _HistoryCalenderState extends State<HistoryCalender> {
   }
 
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    // return eventData;
-    return kEvents[day] ?? [];
+    return _kEventSource2[day] ?? [];
+    // return kEvents[day] ?? [];
   }
 
   List<Event> _getEventsForDays(Set<DateTime> days) {
@@ -106,6 +147,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
   @override
   Widget build(BuildContext context) {
     var day = _focusedDay.subtract(const Duration(days: 6));
+
     return Column(
       children: [
         TableCalendar<Event>(
@@ -129,6 +171,8 @@ class _HistoryCalenderState extends State<HistoryCalender> {
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
               if (value.isEmpty) {
+                getWeekData('${day.year}${day.month}${day.day}',
+                    '${_focusedDay.year}${_focusedDay.month}${_focusedDay.day}');
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -159,16 +203,16 @@ class _HistoryCalenderState extends State<HistoryCalender> {
                         ),
                       ],
                     ),
-                    isDataHas == true
+                    weekEvents.isNotEmpty
                         ? Expanded(
                             child: ListView.builder(
-                                itemCount: eventData.length,
+                                itemCount: weekEvents.length,
                                 itemBuilder: (itemBuilder, index) {
                                   var date = DateFormat.yMMMd('en_US')
                                       .add_jm()
-                                      .format(eventData[index].dateTime);
+                                      .format(weekEvents[index].dateTime);
                                   return eventListTile(
-                                      date, eventData, index, context);
+                                      weekEvents[index], date, index);
                                 }),
                           )
                         : Center(
@@ -201,7 +245,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
                               .add_jm()
                               .format(value[index].dateTime);
 
-                          return eventListTile(date, value, index, context);
+                          return eventListTile(value[index], date, index);
                         },
                       ),
                     ),
@@ -215,8 +259,16 @@ class _HistoryCalenderState extends State<HistoryCalender> {
     );
   }
 
-  Container eventListTile(
-      String date, List<Event> value, int index, BuildContext context) {
+  Widget eventListTile(Event event, String date, int index) {
+    var time = int.parse(event.duration);
+    String newtime = '';
+    if (time >= 60) {
+      var cal = time / 60;
+      newtime = '${cal.toStringAsFixed(0)} min';
+    } else {
+      newtime = "$time sec";
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 1 * SizeConfig.height!),
       padding: EdgeInsets.symmetric(vertical: 1 * SizeConfig.height!),
@@ -253,7 +305,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
             ),
             h5,
             Text(
-              value[index].title.toString(),
+              event.title,
               style: TextStyle(
                 color: black.withOpacity(0.7),
                 fontSize: 2 * SizeConfig.text!,
@@ -271,7 +323,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
               color: orange,
             ),
             w5,
-            Text('${value[index].min} min'),
+            Text(newtime),
             w20,
             Image.asset(
               'assets/icons/time.png',
@@ -279,7 +331,7 @@ class _HistoryCalenderState extends State<HistoryCalender> {
               color: blue,
             ),
             w5,
-            Text('${value[index].kcal} Kcal'),
+            Text('${event.kcal} Kcal'),
           ],
         ),
         trailing: IconButton(
@@ -291,7 +343,11 @@ class _HistoryCalenderState extends State<HistoryCalender> {
                     title: 'Delete',
                     subTitle: 'Are you sure you want to delete it?',
                     onContinue: () {
-                      setState(() => value.removeAt(index));
+                      setState(() => events.removeAt(index));
+                      ExerciseDatabase.instance.deleteEvents(event.id!);
+
+                      showData();
+
                       Navigator.pop(context);
                     },
                   );
@@ -304,20 +360,10 @@ class _HistoryCalenderState extends State<HistoryCalender> {
   }
 }
 
-List<Event> eventData = [
-  Event(
-      dateTime: DateTime.utc(2022, 1, 8),
-      title: 'Exercise for Beginners',
-      min: '41',
-      kcal: '58'),
-  Event(
-      dateTime: DateTime.utc(2022, 1, 12),
-      title: 'Exercise for Beginners',
-      min: '7',
-      kcal: '74'),
-  Event(
-      dateTime: DateTime.utc(2022, 1, 9),
-      title: 'Exercise for Advanced',
-      min: '41',
-      kcal: '58')
-];
+final kToday = DateTime.now();
+final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
+final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+
+int getHashCode(DateTime key) {
+  return key.day * 1000000 + key.month * 10000 + key.year;
+}

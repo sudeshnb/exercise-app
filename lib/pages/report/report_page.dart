@@ -17,7 +17,7 @@ class _ReportsPageState extends State<ReportsPage> {
   List<Reports> history = [];
   int totWorkout = 0;
   double totKacl = 0.0, totTime = 0.0;
-  bool isLoading = false;
+
   @override
   void initState() {
     showData();
@@ -25,10 +25,8 @@ class _ReportsPageState extends State<ReportsPage> {
   }
 
   Future showData() async {
-    setState(() => isLoading = true);
     reports = await ExerciseDatabase.instance.showReports();
-    // history = await ExerciseDatabase.instance.showHistory('2022121');
-    setState(() => isLoading = false);
+
     calculateData();
     if (mounted) setState(() {});
   }
@@ -161,7 +159,7 @@ class _ReportsPageState extends State<ReportsPage> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '1 ',
+                    text: '$count2 ',
                     style: TextStyle(
                       color: red.withOpacity(0.7),
                       fontSize: 2.5 * SizeConfig.text!,
@@ -226,11 +224,26 @@ class _ReportsPageState extends State<ReportsPage> {
     );
   }
 
+  int count = 0;
+  int count2 = 0;
   Widget _getWeek(int index) {
     var now = DateTime.now();
     var day = now.subtract(Duration(days: index));
     var dayName = _getWeekName(day);
-    if (reports.length < index) {}
+    bool isFind = false;
+    if (reports.isNotEmpty) {
+      for (int i = 0; reports.length > i; i++) {
+        if ('${day.month}${day.day}' ==
+            '${reports[i].time.month}${reports[i].time.day}') {
+          isFind = true;
+          count++;
+        }
+      }
+    }
+    if (count > 0) {
+      count2++;
+    }
+
     return Column(
       children: [
         Text(dayName),
@@ -239,12 +252,7 @@ class _ReportsPageState extends State<ReportsPage> {
           height: 40.0,
           width: 40.0,
           decoration: BoxDecoration(
-            color: reports.isNotEmpty
-                ? reports[reports.length - 1].time.day != day.day
-                    ? white
-                    : blueShadow
-                : white,
-            // now.day != day.day ? white : blueShadow,
+            color: isFind ? blueShadow : white,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -256,22 +264,12 @@ class _ReportsPageState extends State<ReportsPage> {
             ],
           ),
           child: Center(
-            child: reports.isNotEmpty
-                ? reports[0].time.day != day.day
-                    ? Text(
-                        day.day.toString(),
-                        style: TextStyle(
-                          color: black.withOpacity(0.7),
-                          fontSize: 18.0,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )
-                    : Image.asset(
-                        'assets/icons/done.png',
-                        color: white,
-                        height: 20.0,
-                      )
+            child: isFind
+                ? Image.asset(
+                    'assets/icons/done.png',
+                    color: white,
+                    height: 20.0,
+                  )
                 : Text(
                     day.day.toString(),
                     style: TextStyle(

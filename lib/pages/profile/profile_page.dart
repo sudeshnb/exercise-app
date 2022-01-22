@@ -9,6 +9,7 @@ import 'package:exercise_app/pages/profile/widgets/height_picker.dart';
 import 'package:exercise_app/pages/profile/widgets/name_picker.dart';
 import 'package:exercise_app/pages/profile/widgets/weight_picker.dart';
 import 'package:exercise_app/widgets/custom_round_btn.dart';
+import 'package:exercise_app/widgets/dialog_box.dart';
 import 'package:exercise_app/widgets/picker.dart';
 import 'package:exercise_app/widgets/warning_dialog_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -386,8 +387,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   description: 'clear all user records in the app',
                   color: red,
                   onTap: () {
-                    ExerciseDatabase.instance.deleteAll();
-                    getUser();
+                    showDialog(
+                        context: context,
+                        builder: (builder) {
+                          return AppDialog(
+                            title: 'Reset',
+                            subTitle:
+                                'Are you sure you want to reset all data ?',
+                            onContinue: () {
+                              ExerciseDatabase.instance.restAllData();
+                              getUser();
+                              Navigator.pop(context);
+                            },
+                          );
+                        });
                   },
                 ),
                 h20,

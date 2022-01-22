@@ -1,18 +1,30 @@
 import 'package:exercise_app/Core/color.dart';
+import 'package:exercise_app/Core/route.dart';
 import 'package:exercise_app/Core/size/size_config.dart';
 import 'package:exercise_app/Core/space.dart';
-import 'package:exercise_app/data/level_model.dart';
 import 'package:exercise_app/widgets/custom_circle_button.dart';
 import 'package:exercise_app/widgets/custom_round_btn.dart';
 import 'package:flutter/material.dart';
 
 class CompletePage extends StatelessWidget {
-  final Levels level;
-  const CompletePage({Key? key, required this.level}) : super(key: key);
+  final CompletPageArguments arg;
+  const CompletePage({Key? key, required this.arg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+    var duration = double.parse(arg.event.duration);
+
+    var time = '';
+    var timeTo = '';
+    if (duration > 60) {
+      var min = duration / 60;
+      timeTo = min.toStringAsFixed(1);
+      time = 'Minutes';
+    } else {
+      timeTo = duration.toString();
+      time = 'Seconds';
+    }
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
@@ -20,7 +32,7 @@ class CompletePage extends StatelessWidget {
             height: height / 2.8,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(level.imagePath),
+                image: AssetImage(arg.levels.imagePath),
                 fit: BoxFit.cover,
               ),
             ),
@@ -30,7 +42,7 @@ class CompletePage extends StatelessWidget {
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/ViewAllExercisePage',
                 (route) => false,
-                arguments: level,
+                arguments: arg.levels,
               );
             },
             imagePath: 'back.png',
@@ -76,7 +88,7 @@ class CompletePage extends StatelessWidget {
                           radius: 3.5 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
-                            level.kcal,
+                            arg.event.kcal,
                             style: TextStyle(
                               color: white,
                               fontSize: 2.5 * SizeConfig.text!,
@@ -104,7 +116,7 @@ class CompletePage extends StatelessWidget {
                           radius: 3.5 * SizeConfig.height!,
                           backgroundColor: blue,
                           child: Text(
-                            level.time,
+                            timeTo,
                             style: TextStyle(
                               color: white,
                               fontSize: 2.5 * SizeConfig.text!,
@@ -115,7 +127,7 @@ class CompletePage extends StatelessWidget {
                         ),
                         h10,
                         Text(
-                          'Minutes',
+                          time,
                           style: TextStyle(
                             color: black,
                             fontSize: 2.2 * SizeConfig.text!,
@@ -133,6 +145,7 @@ class CompletePage extends StatelessWidget {
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         '/BottomNavBar',
                         (route) => false,
+                        arguments: ScreenArguments(0, false),
                       );
                     },
                     text: 'Complete'),
