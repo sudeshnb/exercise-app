@@ -17,7 +17,8 @@ class _ReportsPageState extends State<ReportsPage> {
   List<Reports> history = [];
   int totWorkout = 0;
   double totKacl = 0.0, totTime = 0.0;
-
+  String timeTo = '';
+  String time = '';
   @override
   void initState() {
     showData();
@@ -41,6 +42,23 @@ class _ReportsPageState extends State<ReportsPage> {
 
       history = await ExerciseDatabase.instance.showHistory(date);
     }
+
+    setState(() {
+      if (totTime > 60) {
+        var min = totTime / 60;
+        if (min > 60) {
+          var hour = min / 60;
+          timeTo = hour.toStringAsFixed(0);
+          time = 'Hour';
+        } else {
+          timeTo = min.toStringAsFixed(0);
+          time = 'Minutes';
+        }
+      } else {
+        timeTo = totTime.toString();
+        time = 'Seconds';
+      }
+    });
   }
 
   @override
@@ -68,7 +86,7 @@ class _ReportsPageState extends State<ReportsPage> {
           children: [
             Container(
               padding: EdgeInsets.all(1.5 * SizeConfig.height!),
-              height: 23 * SizeConfig.height!,
+              height: 25 * SizeConfig.height!,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(1 * SizeConfig.height!),
@@ -116,7 +134,8 @@ class _ReportsPageState extends State<ReportsPage> {
                       reportTotalData(
                         name: 'Duraton',
                         imagePath: 'time',
-                        data: totTime.toStringAsFixed(0),
+                        data: timeTo,
+                        exte: time,
                       ),
                     ],
                   ),
@@ -151,33 +170,33 @@ class _ReportsPageState extends State<ReportsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                for (int i = 6; i >= 0; i--) _getWeek(i),
+                for (int i = 6; i >= 0; i--) _getWeek(i, reports),
               ],
             ),
-            h40,
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: '$count2 ',
-                    style: TextStyle(
-                      color: red.withOpacity(0.7),
-                      fontSize: 2.5 * SizeConfig.text!,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' Day in a row',
-                    style: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 2.5 * SizeConfig.text!,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // h40,
+            // RichText(
+            //   text: TextSpan(
+            //     children: [
+            //       TextSpan(
+            //         text: '$count ',
+            //         style: TextStyle(
+            //           color: red.withOpacity(0.7),
+            //           fontSize: 2.5 * SizeConfig.text!,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       ),
+            //       TextSpan(
+            //         text: count > 1 ? ' Days in a row' : ' Day in a row',
+            //         style: TextStyle(
+            //           color: black.withOpacity(0.7),
+            //           fontSize: 2.5 * SizeConfig.text!,
+            //           letterSpacing: 1,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -188,6 +207,7 @@ class _ReportsPageState extends State<ReportsPage> {
     required String name,
     required String imagePath,
     required String data,
+    String? exte,
   }) {
     return Column(
       children: [
@@ -219,29 +239,35 @@ class _ReportsPageState extends State<ReportsPage> {
             fontSize: 2.2 * SizeConfig.text!,
             fontWeight: FontWeight.w600,
           ),
-        )
+        ),
+        h10,
+        if (exte != null)
+          Text(
+            exte,
+            style: TextStyle(
+              color: blue.withOpacity(0.9),
+              letterSpacing: 1,
+              fontSize: 1.5 * SizeConfig.text!,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
       ],
     );
   }
 
-  int count = 0;
-  int count2 = 0;
-  Widget _getWeek(int index) {
+  Widget _getWeek(index, reports) {
     var now = DateTime.now();
     var day = now.subtract(Duration(days: index));
     var dayName = _getWeekName(day);
+
     bool isFind = false;
     if (reports.isNotEmpty) {
       for (int i = 0; reports.length > i; i++) {
         if ('${day.month}${day.day}' ==
             '${reports[i].time.month}${reports[i].time.day}') {
           isFind = true;
-          count++;
         }
       }
-    }
-    if (count > 0) {
-      count2++;
     }
 
     return Column(
